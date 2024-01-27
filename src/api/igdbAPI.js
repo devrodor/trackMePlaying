@@ -1,18 +1,5 @@
-/**
- * 
- * @returns
- */
-export const generateAccessToken = async() => {
+import { generateAccessToken } from "./classes/generateAccessToken";
+import { accessApi } from "./classes/accessApi";
 
- 
-    const endPoint = import.meta.env.VITE_ENDPOINT_URL;  
-    const initParams = {
-        method: 'POST'
-    }
-
-    const conn = await fetch(endPoint, initParams);
-    const data = await conn.json();
-
-    return data;            
- 
-};
+export const tokenGenerator = new generateAccessToken();
+export const apiConsumer  = new accessApi(tokenGenerator);
