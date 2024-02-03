@@ -1,5 +1,7 @@
 import './assets/css/style.css'; 
-import { apiConnection } from "./classes/accessApi";
+import { ApiClient } from "./classes/ApiClient"; 
+import { getGames } from './use-cases/getGames';
 
-const apiConsumer = new apiConnection();
-const example = apiConsumer.requestExample();
+//console.log(getGames({ fields: 'name,release_dates,genres.name,rating' }, 10));
+
+ 
