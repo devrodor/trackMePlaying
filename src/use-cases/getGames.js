@@ -1,5 +1,11 @@
 import { ApiClient } from "../classes/ApiClient";
 
+/**
+ * 
+ * @param {Object} fields 
+ * @param {Object} params 
+ * @returns {Promise}
+ */
 export const getGames = async ( fields, params ) => {
 
     const apiClient = new ApiClient();

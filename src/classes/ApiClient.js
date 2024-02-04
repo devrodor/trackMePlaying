@@ -31,11 +31,7 @@ export class ApiClient {
         } catch( err ) {
             throw err;
         }
-    }
-
-    
-    // TODO: actualmente sólo se retornan ids. 
-    // TODO: excepciones por field desconocido o 0 o -n limit 
+    } 
 
     /**
      * Realiza una solicitud a la API.
