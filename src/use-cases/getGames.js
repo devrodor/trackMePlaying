@@ -1,4 +1,5 @@
-import { ApiClient } from "../classes/ApiClient";
+import { ApiClient } from "../classes/ApiClient"; 
+import { DataMapper} from "../classes/DataMapper";
 
 /**
  * 
@@ -6,7 +7,7 @@ import { ApiClient } from "../classes/ApiClient";
  * @param {Object} params 
  * @returns {Promise}
  */
-export const getGames = async ( fields, params ) => {
+export const getGames = async () => {
 
     const apiClient = new ApiClient();
     try {
@@ -14,8 +15,14 @@ export const getGames = async ( fields, params ) => {
         if (!accessToken) {
             throw new Error('Unable to retrieve access token');
         }
-        const games = await apiClient.getGames(accessToken, '/games', fields, params);
-        console.log(games);
+        const games = await apiClient.getGames(
+                accessToken, '/games', 
+                { fields: 'fields name, summary, cover.u1rl, artworks.url, screenshots.url, similar_games.name;' }, 
+                { limit: 10 }
+            );
+
+        return games.map(DataMapper.mapGame);
+   
     } catch (error) {
         console.error('Error:', error);
     }

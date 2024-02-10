@@ -1,7 +1,9 @@
 import './assets/css/style.css'; 
 import { ApiClient } from "./classes/ApiClient"; 
 import { getGames } from './use-cases/getGames';
+import { getCredentials } from './use-cases/getCredentials';
 
-//console.log(getGames({ fields: 'name,release_dates,genres.name,rating' }, 10));
+//getCredentials();
+const games = await getGames().then(( games )=> console.log( games ));
 
  

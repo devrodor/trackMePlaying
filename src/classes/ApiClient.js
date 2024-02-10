@@ -16,6 +16,13 @@ export class ApiClient {
      * @returns {Object}
      */
     async generateToken() {
+ 
+
+        const accessToken = localStorage.getItem('accesstoken'); 
+
+        if (accessToken) {
+            return accessToken;
+        }
 
         try {
 
@@ -26,7 +33,8 @@ export class ApiClient {
                 throw new Error(`Client error! status: ${response.status}`);
             }
             const data = await response.json();
-            return data.access_token;
+            localStorage.setItem('accesstoken', data.access_token); 
+            return data.access_token;   
 
         } catch( err ) {
             throw err;
@@ -42,6 +50,7 @@ export class ApiClient {
      async getGames( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
  
             const urlParams = { ...params };
+            console.log(body.fields);
 
             // Construye la cadena de consulta
             const queryString  = Object.keys(urlParams)
@@ -49,7 +58,8 @@ export class ApiClient {
                 .join('&');
 
             // URL final de consulta con parametros
-            const url = `${this.endPoint}${servicePath}?${queryString}`; 
+            //const url = `${this.endPoint}${servicePath}?${queryString}`; // this queryString doesn't work! 
+            const url = `${this.endPoint}${servicePath}`; 
  
             try {
                 const response = await fetch(this.proxyUrl + url, {
@@ -58,12 +68,16 @@ export class ApiClient {
                         'Client-ID': this.clientId,
                         'Authorization': `Bearer ${accessToken}`,
                         'Accept': 'application/json',
-                        'Content-Type': 'application/json',
+                        'Content-Type': 'text/plain',
                     },
-                    body: JSON.stringify( body ),
-                });
-                if (!response.ok) {
-                    throw new Error(`HTTP error! status: ${response.status}`);
+                    body: body.fields,
+                }); 
+                if (!response.ok) { 
+                    // todo: para cubrir caso token expirado, regeneramos y guardamos en localStorage ** NO TESTEADO **
+                    
+                    await this.generateToken(); // instancio metodo
+                    
+                    throw new Error(`HTTP error! status: ${response.status} . LocalStorage content: ${localStorage.getItem('accesstoken')}`);
                 }
                 return response.json();
             } catch (error) {
