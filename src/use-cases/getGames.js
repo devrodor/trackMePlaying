@@ -17,7 +17,7 @@ export const getGames = async () => {
         }
         const games = await apiClient.getGames(
                 accessToken, '/games', 
-                { fields: 'fields name, summary, cover.u1rl, artworks.url, screenshots.url, similar_games.name;' }, 
+                { fields: 'fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name;' }, 
                 { limit: 10 }
             );
 

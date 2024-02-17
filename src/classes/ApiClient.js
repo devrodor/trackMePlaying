@@ -17,13 +17,11 @@ export class ApiClient {
      */
     async generateToken() {
  
-
         const accessToken = localStorage.getItem('accesstoken'); 
 
         if (accessToken) {
             return accessToken;
         }
-
         try {
 
             const response = await fetch(`${this.twitchUrl}?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`, {

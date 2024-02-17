@@ -1,6 +1,6 @@
 export class DataMapper {
     /**
-     * 
+     * Maps all fields returned from API
      * @param {Array} data 
      * @returns {Array}
      */
@@ -13,7 +13,7 @@ export class DataMapper {
         name: data.name,
         screenshots: data.screenshots,
         similar_games: data.similar_games,
-        summary: data.summary
+        summariobinario: data.summary
       };
     }
   }

@@ -1,9 +1,9 @@
 import './assets/css/style.css'; 
-import { ApiClient } from "./classes/ApiClient"; 
 import { getGames } from './use-cases/getGames';
-import { getCredentials } from './use-cases/getCredentials';
+import { RenderItems } from './classes/RenderItems'; 
 
 //getCredentials();
-const games = await getGames().then(( games )=> console.log( games ));
+const renderGames = new RenderItems('app');
+const foo = await getGames().then(( games )=> renderGames.render( games ));
 
  
