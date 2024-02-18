@@ -45,7 +45,7 @@ export class ApiClient {
      * @param {Object} params - Parámetros adicionales para la solicitud.
      * @returns {Promise<Object>} Una promesa que resuelve con la respuesta de la API.
      */
-     async getGames( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
+     async apiConn( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
  
             const urlParams = { ...params };
             console.log(body.fields);

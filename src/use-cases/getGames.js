@@ -7,7 +7,7 @@ import { DataMapper} from "../classes/DataMapper";
  * @param {Object} params 
  * @returns {Promise}
  */
-export const getGames = async () => {
+export const getGames = async ( endpoint, fields, limit ) => {
 
     const apiClient = new ApiClient();
     try {
@@ -15,10 +15,11 @@ export const getGames = async () => {
         if (!accessToken) {
             throw new Error('Unable to retrieve access token');
         }
-        const games = await apiClient.getGames(
-                accessToken, '/games', 
-                { fields: 'fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name;' }, 
-                { limit: 10 }
+        const games = await apiClient.apiConn(
+                accessToken,
+                endpoint,
+                fields,
+                limit
             );
 
         return games.map(DataMapper.mapGame);

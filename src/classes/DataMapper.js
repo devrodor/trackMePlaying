@@ -13,7 +13,7 @@ export class DataMapper {
         name: data.name,
         screenshots: data.screenshots,
         similar_games: data.similar_games,
-        summariobinario: data.summary
+        summary: data.summary
       };
     }
   }

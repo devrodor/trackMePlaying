@@ -19,7 +19,7 @@ export class RenderItems {
     }
 
     createItemElement( item ) {
-
+ 
         const container = document.createElement('div');
         container.className = 'item';
         container.innerHTML = `<h2>${item.name}</h2>`;
