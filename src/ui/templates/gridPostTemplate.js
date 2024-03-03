@@ -8,7 +8,7 @@ export const render =  ( container, items ) => {
 
     container.innerHTML = ''; 
     const wrapper = document.createElement('div');
-    wrapper.classList.add('grid','grid-rows-3','grid-flow-col','gap-4');
+    wrapper.classList.add('grid','gap-3','grid-cols-1','md:grid-cols-2','lg:grid-cols-3');
 
     items.forEach( item => {
         
@@ -29,20 +29,28 @@ export const render =  ( container, items ) => {
  */
 const createGridPost = ( item ) => {
  
-    const container = document.createElement('div');
+    const container = document.createElement('a');
+    container.classList.add(
+            'flex',
+            'border',
+            'items-center',
+            'rounded-md',
+            'cursor-pointer',
+            'transition',
+            'duration-500',
+            'shadow-sm',
+        );
 
-    const itemCover = (item.cover) ? item.cover.url : './assets/images/blank.jpg';
-    
+    const itemCover = (item.cover) ? item.cover.url : './assets/images/blank.jpg'; 
+    const itemSummary = (item.summary) ? item.summary.slice(0, 30) + " ..." : 'Sin descripción'; 
 
-    container.classList.add('relative','flex','flex-col','mt-6','text-gray-700','bg-white','shadow-md','bg-clip-border','rounded-xl');
-    container.innerHTML = `<img class="w-full" src="${itemCover}" alt="${item.name}">
-                                <div class="px-6 py-4">
-                                <div class="font-bold text-xl mb-2">${item.name}</div>
-                                <p class="text-gray-700 text-base">
-                                    ${item.summary}
-                                 </p>
-                                </div>`;
-
+    container.innerHTML = `<div class="w-16 p-2 shrink-0">
+                                <img src="${itemCover}" alt="" class="h-12 w-12">
+                            </div>
+                            <div class="p-2">
+                                <p class="font-semibold text-lg">${item.name}</p>
+                                <span class="text-gray-600">${itemSummary}</span>
+                            </div>`; 
     return container;
 
 }
