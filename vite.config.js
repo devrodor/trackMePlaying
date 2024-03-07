@@ -5,7 +5,7 @@ import path from 'path'
 export default defineConfig({
   // Configuración del servidor de desarrollo
   server: {
-    port: 5173,  // Ejemplo: Elige el puerto para el servidor de desarrollo
+    port: 5973,  // Ejemplo: Elige el puerto para el servidor de desarrollo
     open: true,  // Abre el navegador automáticamente al iniciar el servidor
     watch: {
       // Configura el hot reloading
