@@ -5,9 +5,8 @@ import { renderSinglePost } from './ui/templates/singlePostTemplate';
  * 
  * @returns {Object}
  */
+//todo: check exceptions
 const Router = () => {
-
-        //todo: pasar id de entrada para pintar single + id
 
         const pathname = window.location.pathname;
         const path = pathname.slice(1); 

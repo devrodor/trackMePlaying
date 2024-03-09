@@ -5,9 +5,6 @@ import Router from './Router';
 const root = document.getElementById('app');
 const router = Router();
 
-
-
-
 switch(router.templateName){
   default:
   case 'gridPost':
