@@ -48,7 +48,6 @@ export class ApiClient {
      async apiConn( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
  
             const urlParams = { ...params };
-            console.log(body.fields);
 
             // Construye la cadena de consulta
             const queryString  = Object.keys(urlParams)

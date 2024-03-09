@@ -7,7 +7,7 @@ import { DataMapper} from "../classes/DataMapper";
  * @param {Object} params 
  * @returns {Promise}
  */
-export const getGames = async ( endpoint, fields, limit ) => {
+export const getGames = async (endpoint, fields) => {
 
     const apiClient = new ApiClient();
     try {
@@ -18,8 +18,7 @@ export const getGames = async ( endpoint, fields, limit ) => {
         const games = await apiClient.apiConn(
                 accessToken,
                 endpoint,
-                fields,
-                limit
+                fields
             );
 
         return games.map(DataMapper.mapGame);

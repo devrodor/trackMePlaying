@@ -9,7 +9,7 @@ export class DataMapper {
 
         id: data.id,
         checksum: data.checksum,
-        artworks: data.artworks, 
+        artworks: data.artworks,
         cover: data.cover,
         name: data.name,
         screenshots: data.screenshots,

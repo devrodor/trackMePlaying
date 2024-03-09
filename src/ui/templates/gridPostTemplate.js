@@ -4,7 +4,7 @@
  * @param {HTMLElement} items 
  * @returns {HTMLDivElement} 
  */
-export const render =  ( container, items ) => {
+export const renderGrid =  ( container, items ) => {
 
     container.innerHTML = ''; 
     const wrapper = document.createElement('div');
@@ -45,7 +45,7 @@ const createGridPost = ( item ) => {
     const itemSummary = (item.summary) ? item.summary.slice(0, 30) + " ..." : 'Sin descripción'; 
 
     container.innerHTML = `<div class="w-16 p-2 shrink-0">
-                                <img src="${itemCover}" alt="" class="h-12 w-12">
+                                <a href="game/${item.id}"><img src="${itemCover}" alt="" class="h-12 w-12"></a>
                             </div>
                             <div class="p-2">
                                 <p class="font-semibold text-lg">${item.name}</p>
