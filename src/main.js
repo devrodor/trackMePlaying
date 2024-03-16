@@ -30,17 +30,25 @@ switch(router.templateName){
 // search
 root.prepend(router.additionalComponent);
 const searchBar = document.getElementById('default-search');
+const loading = document.getElementById('spinner');
 let timer = null;
 
-searchBar.addEventListener('keydown', ( ) => {
-  clearTimeout(timer);
-  timer = setTimeout(() => {
-    
-    const games = search(searchBar.value);
-    console.log(games);
-    //router.renderMethod( root, games )
+searchBar.addEventListener('keyup', ( ) => {
 
-  }, 300);
+  loading.style.display = 'flex';
+ 
+  clearTimeout(timer);
+  timer = setTimeout(async() => {
+    
+    const games = await search(searchBar.value);
+    router.renderMethod( root, games );
+
+    loading.style.display = 'none';
+
+    root.prepend(router.additionalComponent);
+
+  }, 400);
+
 }); 
                   
 
