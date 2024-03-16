@@ -1,3 +1,4 @@
+import { searchBar } from './ui/templates/searchTemplate';
 import { renderGrid } from './ui/templates/gridPostTemplate';
 import { renderSinglePost } from './ui/templates/singlePostTemplate';
 
@@ -18,11 +19,13 @@ const Router = () => {
 
             {
                 path: '',
+                additionalComponent: searchBar(),
                 templateName: 'gridPost',
                 renderMethod: renderGrid // function to object, nice & clean
             },
             {
                 path: `game/${findGameUrl(path)}`,
+                additionalComponent: '',
                 itemId: findGameUrl(path),
                 templateName: 'singlePost',
                 renderMethod: renderSinglePost              
