@@ -17,13 +17,10 @@ switch(router.templateName){
             break;
 
   case 'singlePost':
-    await getGames('/games', 
-                  { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; where id = ${router.itemId};` }) 
-                  .then(( games )=> console.log( games ));
-    await getGames('/games', 
-                  { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; where id = ${router.itemId};` }) 
-                  .then(( games )=> router.renderMethod( root, games ));
-    break;         
+            await getGames('/games', 
+                          { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; where id = ${router.itemId};` }) 
+                          .then(( games )=> router.renderMethod( root, games ));
+            break;         
 
 }
 
