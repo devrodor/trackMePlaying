@@ -1,5 +1,6 @@
 import { ApiClient } from "../classes/ApiClient"; 
 import { DataMapper} from "../classes/DataMapper";
+import { ManageErrors } from "../classes/ManageErrors";
 
 /**
  * 
@@ -13,7 +14,7 @@ export const getGames = async (endpoint, fields) => {
     try {
         const accessToken = await apiClient.generateToken();
         if (!accessToken) {
-            throw new Error('Unable to retrieve access token');
+            throw new Error('Unable to generate access token');
         }
         const games = await apiClient.apiConn(
                 accessToken,
@@ -24,7 +25,8 @@ export const getGames = async (endpoint, fields) => {
         return games.map(DataMapper.mapGame);
    
     } catch (error) {
-        console.error('Error:', error);
+ 
+        throw new Error('Connection error');
     }
 };
  

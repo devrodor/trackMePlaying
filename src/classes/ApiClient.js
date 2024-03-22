@@ -4,13 +4,12 @@ export class ApiClient {
 
         this.proxyUrl       = import.meta.env.VITE_PROXY_URL;
         this.twitchUrl      = import.meta.env.VITE_GENERATE_TOKEN_ENDPOINT;
-        this.endPoint       = import.meta.env.VITE_API_ENDPOINT;
-        this.apiKey         = import.meta.env.VITE_API_KEY;
+        this.endPoint       = import.meta.env.VITE_API_ENDPOINT; 
         this.clientId       = import.meta.env.VITE_CLIENT_ID
         this.clientSecret   = import.meta.env.VITE_CLIENT_SECRET 
-
+  
     }
-
+  
     /**
      * Obtiene credenciales de servicio
      * @returns {Object}
@@ -57,7 +56,7 @@ export class ApiClient {
             // URL final de consulta con parametros
             //const url = `${this.endPoint}${servicePath}?${queryString}`; // this queryString doesn't work! 
             const url = `${this.endPoint}${servicePath}`; 
- 
+  
             try {
                 const response = await fetch(this.proxyUrl + url, {
                     method: 'POST',
@@ -68,7 +67,7 @@ export class ApiClient {
                         'Content-Type': 'text/plain',
                     },
                     body: body.fields,
-                }); 
+                });  
                 if (!response.ok) { 
                     // todo: para cubrir caso token expirado, regeneramos y guardamos en localStorage ** NO TESTEADO **
                     
@@ -77,9 +76,11 @@ export class ApiClient {
                     throw new Error(`HTTP error! status: ${response.status} . LocalStorage content: ${localStorage.getItem('accesstoken')}`);
                 }
                 return response.json();
-            } catch (error) {
+            } catch (error) {  
+                console.log(response.json);
                 console.error("Error fetching data: ", error);
                 throw error;
+             
             }
   
         }

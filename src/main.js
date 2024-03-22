@@ -1,8 +1,8 @@
 import './assets/css/style.css'; 
 import Router from './Router';
 import { getGames } from './use-cases/getGames'; 
-import { search } from './use-cases/searchGames';
-
+import { search } from './use-cases/searchGames'; 
+ 
 const root = document.getElementById('app'); 
 const router = Router(); 
  
@@ -40,9 +40,9 @@ searchBar.addEventListener('keyup', ( ) => {
     const games = await search(searchBar.value);
     router.renderMethod( root, games );
 
-    loading.style.display = 'none';
-
     root.prepend(router.additionalComponent);
+
+    loading.style.display = 'none';
 
   }, 400);
 
