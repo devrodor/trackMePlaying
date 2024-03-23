@@ -1,20 +1,23 @@
-# Pending
+# Pending (Short term)
 
-- Search
-- Fix header responsive
-- Finish game profile template
-- Filter buttons (New, Order by...)
-- Loading gif
-- Save info from every request to a local DB.json file
-- Load more ...
+* Search
+    - encapsulate functionality **
+    - no results scenario
+    - more than 10 results
+    - load more ...
+* Finish game profile template
+* Filter buttons (New, Order by...)
+* Loading placeholders
+* Load more ...
 
-# Implementation
+# Implementation (Long term)
 
-- mongoDB
-- Trophy API (PS5 + Xbox first)
+* mongoDB
+* Save data from every request to a local DB.json file
+* Trophy API (PS5 + Xbox first)
 
 # Errors
 
-- Catch error when proxy server is not running
-- Catch error on bad request on getGames
-- Catch error on expired token
+* Catch error when proxy server is not running
+* Catch error on bad request on getGames
+* Catch error on expired token

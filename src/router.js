@@ -21,7 +21,7 @@ const Router = () => {
                 path: '',
                 additionalComponent: searchBar(),
                 templateName: 'gridPost',
-                renderMethod: renderGrid // function to object, nice & clean
+                renderMethod: renderGrid // ref
             },
             {
                 path: `game/${findGameUrl(path)}`,

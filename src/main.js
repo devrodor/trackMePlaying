@@ -1,7 +1,7 @@
 import './assets/css/style.css'; 
 import Router from './Router';
-import { getGames } from './use-cases/getGames'; 
-import { search } from './use-cases/searchGames'; 
+import { getGames } from './use-cases/getGames';  
+import { searchGames,doSearch } from './use-cases/searchGames';
  
 const root = document.getElementById('app'); 
 const router = Router(); 
@@ -14,6 +14,16 @@ switch(router.templateName){
             await getGames('/games', 
                           { fields: 'fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name; limit 30;' }) 
                           .then(( games )=> router.renderMethod( root, games ));
+                          root.prepend(router.additionalComponent); // aditional UI component (search)
+  
+                          //search
+                            document.addEventListener('keyup', (event) => {  
+                              if (event.target.id === 'default-search') {
+                                const searchBar = event.target;
+                                const loading = document.getElementById('spinner');
+                                doSearch(searchBar, loading);
+                              } 
+                            });   
             break;
 
   case 'singlePost':
@@ -24,29 +34,7 @@ switch(router.templateName){
 
 }
 
-// search
-root.prepend(router.additionalComponent);
-const searchBar = document.getElementById('default-search');
-const loading = document.getElementById('spinner');
-let timer = null;
 
-searchBar.addEventListener('keyup', ( ) => {
-
-  loading.style.display = 'flex';
- 
-  clearTimeout(timer);
-  timer = setTimeout(async() => {
-    
-    const games = await search(searchBar.value);
-    router.renderMethod( root, games );
-
-    root.prepend(router.additionalComponent);
-
-    loading.style.display = 'none';
-
-  }, 400);
-
-}); 
                   
 
   
