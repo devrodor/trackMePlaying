@@ -1,4 +1,3 @@
-import { searchBar } from './ui/templates/searchTemplate';
 import { renderGrid } from './ui/templates/gridPostTemplate';
 import { renderSinglePost } from './ui/templates/singlePostTemplate';
 
@@ -19,7 +18,7 @@ const Router = () => {
 
             {
                 path: '',
-                additionalComponent: searchBar(),
+                additionalComponent: '',
                 templateName: 'gridPost',
                 renderMethod: renderGrid // ref
             },

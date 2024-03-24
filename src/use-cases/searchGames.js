@@ -28,8 +28,7 @@ export const doSearch = (searchelement,loading) => {
         timerElement = setTimeout(async() => {
 
             const games = await searchGames(searchelement.value);
-            router.renderMethod( root, games );
-            root.prepend(router.additionalComponent);
+            router.renderMethod( root, games ); 
             loading.style.display = 'none';
 
         }, 400); 

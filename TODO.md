@@ -4,6 +4,7 @@
     - encapsulate functionality **
     - no results scenario
     - more than 10 results
+    - suggestions on game profile view
     - load more ...
 * Finish game profile template
 * Filter buttons (New, Order by...)
