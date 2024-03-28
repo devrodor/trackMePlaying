@@ -18,13 +18,14 @@ const Router = () => {
 
             {
                 path: '',
-                additionalComponent: '',
+                additionalComponent: null,
+                itemId: null,
                 templateName: 'gridPost',
                 renderMethod: renderGrid // ref
             },
             {
                 path: `game/${findGameUrl(path)}`,
-                additionalComponent: '',
+                additionalComponent: null,
                 itemId: findGameUrl(path),
                 templateName: 'singlePost',
                 renderMethod: renderSinglePost              

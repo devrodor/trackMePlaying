@@ -1,10 +1,10 @@
 # Pending (Short term)
 
 * Search
-    - encapsulate functionality **
+    - encapsulate functionality ** (review and done)
     - no results scenario
     - more than 10 results
-    - suggestions on game profile view
+    - suggestions (on game profile view only)
     - load more ...
 * Finish game profile template
 * Filter buttons (New, Order by...)

@@ -3,4 +3,4 @@
 @tailwind utilities;
 
 /* Search component */
-#spinner  { display: none; }
+#spinner,#suggestedBox { display: none; }
