@@ -20,7 +20,7 @@ export default defineConfig({
     }
   },
   // Configura el directorio raíz del proyecto
-  root: path.join(__dirname, 'src'),
+  //root: path.join(__dirname, 'src'),
   // Configura el proceso de construcción
   build: {
     outDir: '../dist',  // Coloca la carpeta de salida (dist) en la raíz del proyecto

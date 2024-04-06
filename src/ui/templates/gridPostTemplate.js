@@ -41,7 +41,7 @@ const createGridPost = ( item ) => {
             'shadow-sm',
         );
 
-    const itemCover = (item.cover) ? item.cover.url : './assets/images/blank.jpg'; 
+    const itemCover = (item.cover) ? item.cover.url : '/assets/images/blank.jpg'; 
     const itemSummary = (item.summary) ? item.summary.slice(0, 30) + " ..." : 'Sin descripción'; 
 
     container.innerHTML = `<div class="w-16 p-2 shrink-0">

@@ -1,19 +1,34 @@
 import { getGames } from "./getGames"; 
 import { renderSuggestedPost } from "../ui/templates/suggestedPostTemplate";
+import UserData from "../classes/UserData";
 import Router from "../Router";
 
 const root = document.getElementById('app'); 
 const router = Router(); 
+const user = new UserData();
 
 
 const searchGames = async( searchTerm ) => {
 
         //element.value;
         return await getGames('/games', 
-        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; where name = *"${searchTerm}"*;` }) 
+        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit 30; where name = *"${searchTerm}"*;` }) 
         .then( (games) => games );
 
 } 
+
+const noResults = (element, message) => {
+
+        element.innerHTML = '';
+        console.log(element);
+        const wrapper = document.createElement('div');
+        wrapper.classList.add('grid','grid-cols-1');
+
+        wrapper.innerHTML = `<p>${message}</p>`;
+
+        return element.appendChild(wrapper);
+
+ }
  
 let timerElement = null;
 
@@ -25,10 +40,26 @@ export const doSearch = (searchelement,loading) => {
         timerElement = setTimeout(async() => {
 
             const games = await searchGames(searchelement.value);
+
+            // seeking no results
+            if(games.length === 0){
+               noResults(root,'No results!');
+               loading.style.display = 'none';
+               return;
+            }
+
             router.renderMethod( root, games ); 
+            user.setUserData(
+                {
+                        lastSearchElement: searchelement.value,
+                        resultTerms: games 
+                }); 
+
             loading.style.display = 'none';
 
         }, 400); 
+        
+               
 
 }
 
@@ -64,3 +95,4 @@ export const doSuggestSearch = () => {
         return;
  
  }
+
