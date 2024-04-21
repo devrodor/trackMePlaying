@@ -54,3 +54,16 @@ const createGridPost = ( item ) => {
     return container;
 
 }
+
+
+export const createLoadMoreBtn = () => {
+
+    const buttonContainer = document.createElement('div');
+    buttonContainer.id = 'button-container';
+
+    const buttn = document.createElement('button');
+    buttn.textContent = 'Haz clic aquí';
+    buttonContainer.appendChild(buttn);
+    return buttonContainer;
+
+}
