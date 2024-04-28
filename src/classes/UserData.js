@@ -6,19 +6,17 @@ class UserData {
     //todo: fix searchTerm
     constructor(userData) { 
         const loadedData = localStorage.getItem('trackUserPrefs');
-
-        if (loadedData !== null) { 
-            this.userObj = JSON.parse(loadedData);
-        } else {
-            
+ 
+          
             this.userObj = {
                 lastSearchTerm: null,
                 limit: 30,
                 offset: 0,
-                resulTerms: userData // Asumiendo que quieres iniciar con userData si no hay datos previos
+                resulTerms: userData 
             };
-            localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
-        } 
+            
+        
+        localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
     }
 
     getUserData() {
