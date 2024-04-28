@@ -1,27 +1,45 @@
+import UserData from "../classes/UserData";
 import { getGames } from "./getGames";
 import Router from "../Router";
 
-export const loadMore = () => {
+const userData = new UserData();
+const router = Router(); 
+const root = document.getElementById('app'); 
 
+//todo: refactor
+export const loadMore = async() => {  
+      
+       const userLog = userData.getUserData();
 
-    /* 
-        todo: 
-        * Check if items on screen are results of a search term (including the initial one)
-        * if results are searched terms, check if there is more vs limit
-        * if not, simply increase number of items on screen 
-    
-    */
+       const userSearch = userLog.lastSearchTerm; 
+       const userOffset = userLog.offset;
+       const userTerms = userLog.resulTerms;
+
+       console.log(userLog);
+
+       let searchValue;
+       (userSearch) ? searchValue = `where name ~ "${userLog.lastSearchElement}"*;` : searchValue = ``;
+       
+       const offset = userOffset + 30;
+       const limit = userLog.limit;
+
+       console.log(offset);
+       console.log(userSearch);
+         
+       await getGames('/games', 
+       { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; ${searchValue}` }) 
+       .then(games => { 
+            const newGames = [...userTerms,...games];
+            console.log(newGames);  
+            return newGames;
+        })
+        .then((newGames) => { router.renderMethod( root, newGames ); userData.setUserData('resulTerms', newGames); })
+        .catch(error => {
+            console.error('Error fetching games:', error);
+        }) 
+        .finally(() => {   
+            userData.setUserData('offset', offset);
+        })
+        
  
-}
-
-export const createLoadMoreBtn = () => {
-
-    const buttonContainer = document.createElement('div');
-    buttonContainer.id = 'button-container';
-
-    const buttn = document.createElement('button');
-    buttn.textContent = 'Haz clic aquí';
-    buttonContainer.appendChild(buttn);
-    return buttonContainer;
-
 }

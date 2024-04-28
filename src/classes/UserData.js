@@ -1,33 +1,50 @@
 
 
-export class UserData {
+class UserData {
 
-    constructor(){
-        
-        //loads userDataObject
-        this.loadUserData = localStorage.getItem('trackUserPrefs'); 
+    //todo: fix user object, saves values bad
+    //todo: fix searchTerm
+    constructor(userData) { 
+        const loadedData = localStorage.getItem('trackUserPrefs');
 
-        if(this.loadUserData === null) {
-            const userObj = {
+        if (loadedData !== null) { 
+            this.userObj = JSON.parse(loadedData);
+        } else {
+            
+            this.userObj = {
                 lastSearchTerm: null,
-            }
-            localStorage.setItem('trackUserPrefs', JSON.stringify(userObj));
-        }
-
-        return this.loadUserData;
-    
+                limit: 30,
+                offset: 0,
+                resulTerms: userData // Asumiendo que quieres iniciar con userData si no hay datos previos
+            };
+            localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
+        } 
     }
 
-    setUserData(data) {
+    getUserData() {
+
+        const userData = {};
+        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
+
+        userData.lastSearchElement = userLog.lastSearchElement;
+        userData.limit = userLog.limit;
+        userData.offset = userLog.offset;
+        userData.resulTerms = userLog.resulTerms;
+
+        return userData;
+    }
+     
+
+    setUserData(prop,value) {
+         
+        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
         
-        const updatedPrefs = { ...data };
-        localStorage.setItem('trackUserPrefs', JSON.stringify(updatedPrefs));
-        
-    }
-
-    #getUserData() {
+        userLog[prop] = value;
+        localStorage.setItem('trackUserPrefs', JSON.stringify(userLog));
 
     }
+
+
 
 
 }

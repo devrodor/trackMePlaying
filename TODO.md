@@ -6,7 +6,7 @@
     - load more ...
 * Finish game profile template
 * Filter buttons (New, Order by...)
-* Loading placeholders
+* Loading placeholders on games grid
 * Load more ...
 * Night mode
 
