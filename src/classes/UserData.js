@@ -1,22 +1,33 @@
 
 
 class UserData {
-
-    //todo: fix user object, saves values bad
-    //todo: fix searchTerm
-    constructor(userData) { 
-        const loadedData = localStorage.getItem('trackUserPrefs');
  
-          
+    constructor() { 
+
+        //creates userObj and inserts it into localStorage
+        const loadedData = localStorage.getItem('trackUserPrefs');
+
+        if(loadedData === null) {
+
             this.userObj = {
                 lastSearchTerm: null,
                 limit: 30,
                 offset: 0,
-                resulTerms: userData 
+                resulTerms: null 
             };
             
+            localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
+            
+        }
+
+    }
+
+    initState(data) {
+
+        const userData = {};
+        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
         
-        localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
+
     }
 
     getUserData() {

@@ -4,7 +4,9 @@ import UserData from './classes/UserData';
 import { getGames } from './use-cases/getGames'; 
 import { loadMore } from './use-cases/loadMoreGames';  
 import { doSearch, doSuggestSearch } from './use-cases/searchGames';
- 
+
+const user = new UserData();
+
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search');
 const loading = document.getElementById('spinner');
@@ -20,7 +22,7 @@ switch(router.templateName){
 
             await getGames('/games', 
                           { fields: `fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name; limit ${limitEntries};` })
-                          .then(( games )=> { new UserData(games); return games; })
+                          .then(( games )=> { user.initState(games); return games; })
                           .then(( games )=> router.renderMethod( root, games ))  
             //search
             document.addEventListener('keyup', () => {   

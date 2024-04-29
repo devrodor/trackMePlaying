@@ -2,7 +2,7 @@ import UserData from "../classes/UserData";
 import { getGames } from "./getGames";
 import Router from "../Router";
 
-const userData = new UserData();
+const userData = new UserData(); // this causes the object to reset on every instantiation
 const router = Router(); 
 const root = document.getElementById('app'); 
 
@@ -23,6 +23,7 @@ export const loadMore = async() => {
        const offset = userOffset + 30;
        const limit = userLog.limit;
 
+       console.log(`Última búsqueda: ${searchValue}`);
        console.log(offset);
        console.log(userSearch);
          
