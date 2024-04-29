@@ -23,10 +23,12 @@ class UserData {
     }
 
     initState(data) {
-
-        const userData = {};
+ 
         const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
-        
+         
+        userLog.resulTerms = data;
+
+        localStorage.setItem('trackUserPrefs', JSON.stringify(userLog));
 
     }
 
@@ -34,8 +36,8 @@ class UserData {
 
         const userData = {};
         const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
-
-        userData.lastSearchElement = userLog.lastSearchElement;
+ 
+        userData.lastSearchTerm = userLog.lastSearchTerm;
         userData.limit = userLog.limit;
         userData.offset = userLog.offset;
         userData.resulTerms = userLog.resulTerms;
@@ -47,8 +49,9 @@ class UserData {
     setUserData(prop,value) {
          
         const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
-        
+
         userLog[prop] = value;
+
         localStorage.setItem('trackUserPrefs', JSON.stringify(userLog));
 
     }

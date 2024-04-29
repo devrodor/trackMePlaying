@@ -50,8 +50,10 @@ export const doSearch = (searchelement,loading) => {
             }
 
             router.renderMethod( root, games ); 
+
             userData.setUserData('lastSearchTerm', searchelement.value);
             userData.setUserData('resulTerms', games);
+            userData.setUserData('offset', 0);
           
             loading.style.display = 'none';
 

@@ -13,20 +13,13 @@ export const loadMore = async() => {
 
        const userSearch = userLog.lastSearchTerm; 
        const userOffset = userLog.offset;
-       const userTerms = userLog.resulTerms;
-
-       console.log(userLog);
-
-       let searchValue;
-       (userSearch) ? searchValue = `where name ~ "${userLog.lastSearchElement}"*;` : searchValue = ``;
-       
+       const userTerms = userLog.resulTerms; 
        const offset = userOffset + 30;
        const limit = userLog.limit;
-
-       console.log(`Última búsqueda: ${searchValue}`);
-       console.log(offset);
-       console.log(userSearch);
-         
+ 
+       let searchValue;
+       (userSearch) ? searchValue = `where name ~ "${userLog.lastSearchTerm}"*;` : searchValue = ``;
+ 
        await getGames('/games', 
        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; ${searchValue}` }) 
        .then(games => { 
