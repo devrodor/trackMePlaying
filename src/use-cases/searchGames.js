@@ -20,7 +20,7 @@ const searchGames = async( searchTerm ) => {
 const noResults = (element, message) => {
 
         element.innerHTML = '';
-        console.log(element);
+   
         const wrapper = document.createElement('div');
         wrapper.classList.add('grid','grid-cols-1');
 
@@ -95,4 +95,4 @@ export const doSuggestSearch = () => {
         return;
  
  }
-
+ 

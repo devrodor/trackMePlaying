@@ -1,20 +1,21 @@
 # Pending (Short term)
 
-* Search
-    - encapsulate functionality ** (review and done)
-    - suggestions (on game profile view only)
-    - load more ...
-* Finish game profile template
+* Cancel search Search
 * Filter buttons (New, Order by...)
+* Cancel and erase search term
+* Control load more offset  
+* Suggestions (on game profile view only) 
+* Finish game profile template
 * Loading placeholders on games grid
 * Load more ...
 * Night mode
+* Refactor
 
 # Implementation (Long term)
 
 * mongoDB
 * Forms
-* Save data from every request to a local DB.json file
+* Save data from every request to DB
 * Trophy API (PS5 + Xbox first)
 
 # Errors

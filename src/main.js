@@ -12,8 +12,7 @@ const searchBar = document.getElementById('default-search');
 const loading = document.getElementById('spinner');
 const limitEntries = 50; 
  
-const router = Router();   
-
+const router = Router();    
   
 // load template
 switch(router.templateName){
@@ -23,14 +22,15 @@ switch(router.templateName){
             await getGames('/games', 
                           { fields: `fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name; limit ${limitEntries};` })
                           .then(( games )=> { user.initState(games); return games; })
-                          .then(( games )=> router.renderMethod( root, games ))  
+                          .then(( games )=> router.renderMethod( root, games )) 
             //search
             document.addEventListener('keyup', () => {   
                 doSearch(searchBar, loading);
             });
 
             //loadMore
-            const butonMore = document.getElementById('loadMore'); // delegate, it doesn't work the second time
+            const butonMore = document.getElementById('loadMore'); 
+            butonMore.style.display = 'flex';
             butonMore.addEventListener('click',  () => {  
               loadMore();  
             }); 
