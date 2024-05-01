@@ -1,13 +1,11 @@
 # Pending (Short term)
 
-* Cancel search Search
+* Cancel search
 * Filter buttons (New, Order by...)
-* Cancel and erase search term
-* Control load more offset  
+* Control load more offset on top limit 
 * Suggestions (on game profile view only) 
 * Finish game profile template
 * Loading placeholders on games grid
-* Load more ...
 * Night mode
 * Refactor
 
