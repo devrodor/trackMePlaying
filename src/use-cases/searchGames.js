@@ -6,6 +6,7 @@ import Router from "../Router";
 const root = document.getElementById('app'); 
 const router = Router(); 
 const userData = new UserData();
+const loadMoreButton = document.getElementById('loadMore');
 
 
 const searchGames = async( searchTerm ) => {
@@ -34,14 +35,14 @@ let timerElement = null;
 
 export const doSearch = (searchelement,loading) => {
 
-       loading.style.display = 'flex';
+       loading.style.display = 'flex'; 
+       loadMoreButton.disabled = false;
                             
         clearTimeout(timerElement);
         timerElement = setTimeout(async() => {
 
             const games = await searchGames(searchelement.value);
-            console.log(games);
-
+ 
             // seeking no results
             if(games.length === 0){
                noResults(root,'No results!');
@@ -51,6 +52,7 @@ export const doSearch = (searchelement,loading) => {
 
             router.renderMethod( root, games ); 
 
+            //todo: encapsulate userdata set
             userData.setUserData('lastSearchTerm', searchelement.value);
             userData.setUserData('resulTerms', games);
             userData.setUserData('offset', 0);
@@ -58,9 +60,7 @@ export const doSearch = (searchelement,loading) => {
             loading.style.display = 'none';
 
         }, 400); 
-        
                
-
 }
 
 export const doSuggestSearch = () => {

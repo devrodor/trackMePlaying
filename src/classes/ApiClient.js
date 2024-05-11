@@ -11,15 +11,12 @@ export class ApiClient {
     }
   
     /**
-     * Obtiene credenciales de servicio
+     * Get service credentials
      * @returns {Object}
      */
     async generateToken() {
- 
-        const accessToken = localStorage.getItem('accesstoken'); 
-
-        if (accessToken) return accessToken;
-        if(!this.twitchUrl) throw new Error(`Initialization error. Check config`);
+  
+        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`);
        
         try {
 
@@ -39,22 +36,12 @@ export class ApiClient {
     } 
 
     /**
-     * Realiza una solicitud a la API.
-     * @param {string} servicePath - El path del servicio de la API (ejemplo: '/games/31910').
-     * @param {Object} params - Parámetros adicionales para la solicitud.
-     * @returns {Promise<Object>} Una promesa que resuelve con la respuesta de la API.
+     * api call
+     * @param {string} servicePath - api endpoint (ejemplo: '/games/31910'). 
+     * @returns {Promise<Object>} - api response
      */
      async apiConn( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
  
-            const urlParams = { ...params };
-
-            // Construye la cadena de consulta
-            const queryString  = Object.keys(urlParams)
-                .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(urlParams[key])}`)
-                .join('&');
-
-            // URL final de consulta con parametros
-            //const url = `${this.endPoint}${servicePath}?${queryString}`; // this queryString doesn't work! 
             const url = `${this.endPoint}${servicePath}`; 
   
             try {
@@ -68,13 +55,11 @@ export class ApiClient {
                     },
                     body: body.fields,
                 });  
-                if (!response.ok) { 
-                    // todo: para cubrir caso token expirado, regeneramos y guardamos en localStorage ** NO TESTEADO **
-                    
+ 
+                if(response !== 401) {
+                    //control 401 response
                     await this.generateToken(); // instancio metodo
-                    
-                    throw new Error(`HTTP error! status: ${response.status} . LocalStorage content: ${localStorage.getItem('accesstoken')}`);
-                }
+                } 
                 return response.json();
             } catch (error) {  
                 console.log(response.json);
