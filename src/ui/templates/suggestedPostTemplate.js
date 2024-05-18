@@ -14,12 +14,12 @@ export const renderSuggestedPost = (container,elements) => {
 
     elements.forEach((e)=> {
 
-        const finalCover = (e.cover) ? e.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
+        const finalCover = (e.cover) ? "//images.igdb.com/igdb/image/upload/t_1080p/" + e.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
 
         const listItem = document.createElement('li');
         listItem.innerHTML = `<li>
                                 <a href="${e.id}">
-                                    <img class="w-8 h-8 inline mr-2" src="//images.igdb.com/igdb/image/upload/t_1080p/${finalCover}">
+                                    <img class="w-8 h-8 inline mr-2" src="${finalCover}">
                                     ${e.name}
                                     </li>
                                 </a>`; 

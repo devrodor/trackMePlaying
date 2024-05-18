@@ -6,8 +6,21 @@ import Router from "../Router";
 const root = document.getElementById('app'); 
 const router = Router(); 
 const userData = new UserData();
-const loadMoreButton = document.getElementById('loadMore');
 
+const searchBar = document.getElementById('default-search');
+const loading = document.getElementById('spinner');
+const loadMoreButton = document.getElementById('loadMore');
+const cancelButton = document.getElementById('clear-search');
+
+let searchCancelled = false; 
+
+
+document.addEventListener('click', (event) => {
+        if(event.target !== searchBar) {
+                cancelButton.style.display = 'none';
+        }
+
+})
 
 const searchGames = async( searchTerm ) => {
 
@@ -24,7 +37,6 @@ const noResults = (element, message) => {
    
         const wrapper = document.createElement('div');
         wrapper.classList.add('grid','grid-cols-1');
-
         wrapper.innerHTML = `<p>${message}</p>`;
 
         return element.appendChild(wrapper);
@@ -33,16 +45,29 @@ const noResults = (element, message) => {
  
 let timerElement = null;
 
-export const doSearch = (searchelement,loading) => {
+export const doSearch = (searchelement) => {
 
        loading.style.display = 'flex'; 
+       cancelButton.style.display = 'flex';
        loadMoreButton.disabled = false;
-                            
+                  
         clearTimeout(timerElement);
+        
         timerElement = setTimeout(async() => {
 
-            const games = await searchGames(searchelement.value);
+        //canceling search
+        if(cancelButton.addEventListener('click', ()=>{
+                loading.style.display = 'none';
+                searchelement.value = '';
+                searchCancelled = true; 
+        }));   
  
+            if(searchelement.value != ''){
+                cancelButton.style.display = 'none'; //prevents cancels while async search
+            }
+
+            const games = await searchGames(searchelement.value);   
+            
             // seeking no results
             if(games.length === 0){
                noResults(root,'No results!');
@@ -58,6 +83,8 @@ export const doSearch = (searchelement,loading) => {
             userData.setUserData('offset', 0);
           
             loading.style.display = 'none';
+            searchCancelled = false;
+
 
         }, 400); 
                

@@ -8,13 +8,13 @@ export const renderSinglePost =  (container, singleElement) => {
  
     const[item] = singleElement;
     console.log(item.cover);
-    const finalCover = (item.cover) ? item.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
+    const finalCover = (item.cover) ? "//images.igdb.com/igdb/image/upload/t_1080p/" + item.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
 
     container.innerHTML = `<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row -mx-4">
                     <div class="md:flex-1 px-4">
                         <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                            <img class="w-full h-full object-cover" src="//images.igdb.com/igdb/image/upload/t_1080p/${finalCover}">
+                            <img class="w-full h-full object-cover" src="${finalCover}">
                         </div>
                        
                     </div>

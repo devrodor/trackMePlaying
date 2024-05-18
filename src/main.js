@@ -9,7 +9,7 @@ const user = new UserData();
 
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search');
-const loading = document.getElementById('spinner');
+
 const limitEntries = 50; 
  
 const router = Router();    
@@ -24,8 +24,8 @@ switch(router.templateName){
                           .then(( games )=> { user.initState(games); return games; })
                           .then(( games )=> router.renderMethod( root, games )) 
             //search
-            document.addEventListener('keyup', () => {   
-                doSearch(searchBar, loading);
+            searchBar.addEventListener('keyup', () => {    
+                doSearch(searchBar);
             });
 
             //loadMore

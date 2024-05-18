@@ -1,6 +1,5 @@
 # Pending (Short term)
 
-* Cancel search
 * Filter buttons (New, Order by...) 
 * Finish game profile template
 * Loading placeholders on games grid
