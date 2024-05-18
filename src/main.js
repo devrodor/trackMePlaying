@@ -3,7 +3,7 @@ import Router from './Router';
 import UserData from './classes/UserData';
 import { getGames } from './use-cases/getGames'; 
 import { loadMore } from './use-cases/loadMoreGames';  
-import { doSearch, doSuggestSearch } from './use-cases/searchGames';
+import { doSearch, doSuggestSearch } from './use-cases/searchGames'; 
 
 const user = new UserData();
 
@@ -33,9 +33,7 @@ switch(router.templateName){
             butonMore.style.display = 'flex';
             butonMore.addEventListener('click',  () => {  
               loadMore();  
-            }); 
-                            
-
+            });  
             break;
 
   case 'singlePost':

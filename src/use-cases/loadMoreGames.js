@@ -1,4 +1,4 @@
-import UserData from "../classes/UserData";
+import UserData from "../classes/UserData"; 
 import { getGames } from "./getGames";
 import Router from "../Router";
 
@@ -25,7 +25,10 @@ export const loadMore = async() => {
        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; ${searchValue}` }) 
        .then(games => { 
             loadMoreButton.disabled = false;
-            if(games.length <= 1) { loadMoreButton.disabled = true; } 
+
+            if(games.length <= 1) { 
+                loadMoreButton.disabled = true; 
+            } 
 
             const newGames = [...userTerms,...games];
             return newGames;

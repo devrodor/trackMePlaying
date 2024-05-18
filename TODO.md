@@ -1,9 +1,7 @@
 # Pending (Short term)
 
 * Cancel search
-* Filter buttons (New, Order by...)
-* Control load more offset on top limit 
-* Suggestions (on game profile view only) 
+* Filter buttons (New, Order by...) 
 * Finish game profile template
 * Loading placeholders on games grid
 * Night mode
@@ -14,7 +12,7 @@
 * mongoDB
 * Forms
 * Save data from every request to DB
-* Trophy API (PS5 + Xbox first)
+* Think how to implement Trophy API (PS5 + Xbox first)
 
 # Errors
 
