@@ -2,7 +2,7 @@ import UserData from "../classes/UserData";
 import { getGames } from "./getGames";
 import Router from "../Router";
 
-const userData = new UserData(); // reset on every instantiation
+const userData = new UserData(); // reset on every instantiation.
 const router = Router(); 
 const root = document.getElementById('app'); 
 const loadMoreButton = document.getElementById('loadMore');
