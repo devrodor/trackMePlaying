@@ -12,38 +12,47 @@ export class ApiClient {
   
     /**
      * Get service credentials
+     * Stablish expiration date
      * @returns {Object}
      */
     async generateToken() {
   
         if(!this.proxyUrl) throw new Error(`Initialization error. No valid proxy URL`); 
-        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`); 
- 
-        try {
+        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`);
 
-            const response = await fetch(`${this.twitchUrl}?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`, {
-                method: 'POST'
-            });
-            if(response.status !== 200){ 
-                throw new Error(`Client error! status: ${response.status}`);
-            }
-            const data = await response.json();
- 
-            /*let credentials = {
-                access_token: data.access_token, 
-                expires_in: data.expires_in,
-                token_type: data.token_type
-            } 
-            localStorage.setItem('client', JSON.stringify(credentials));*/
-            
-            localStorage.setItem('accesstoken', data.access_token); 
- 
-            return data.access_token;   
+        const clientString = localStorage.getItem('clientdata');
+        const client = clientString ? JSON.parse(clientString) : null; 
+        const now = Date.now();
 
-        } catch( err ) {
-            throw err;
-        }
+        if (!client || (now > client.expires_limit)) {
+
+             try {
+
+                const response = await fetch(`${this.twitchUrl}?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`, {
+                    method: 'POST'
+                });
+                if(response.status !== 200){ 
+                    throw new Error(`Client error! status: ${response.status}`);
+                }
+                const data = await response.json(); 
+ 
+                let expiration = now + data.expires_in * 1000; // converts expires_in to milisegundos and adds now time in miliseconds
+
+                let credentials = {
+                        access_token: data.access_token, 
+                        expires_in: data.expires_in, 
+                        expires_limit: expiration,  
+                        token_type: data.token_type
+                    } 
+                localStorage.setItem('clientdata', JSON.stringify(credentials)); 
+             } catch( err ) {
+                 throw err;
+             }
+
+        }    
+        return client.access_token;
     } 
+//}
 
     /**
      * api call
