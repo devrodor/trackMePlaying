@@ -11,6 +11,8 @@ import { ManageErrors } from "../classes/ManageErrors";
 export const getGames = async (endpoint, fields) => {
 
     const apiClient = new ApiClient();
+
+
     try {
         const accessToken = await apiClient.generateToken();
         if (!accessToken) {

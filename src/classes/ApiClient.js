@@ -16,8 +16,9 @@ export class ApiClient {
      */
     async generateToken() {
   
-        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`);
-       
+        if(!this.proxyUrl) throw new Error(`Initialization error. No valid proxy URL`); 
+        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`); 
+ 
         try {
 
             const response = await fetch(`${this.twitchUrl}?client_id=${this.clientId}&client_secret=${this.clientSecret}&grant_type=client_credentials`, {
@@ -27,7 +28,16 @@ export class ApiClient {
                 throw new Error(`Client error! status: ${response.status}`);
             }
             const data = await response.json();
+ 
+            /*let credentials = {
+                access_token: data.access_token, 
+                expires_in: data.expires_in,
+                token_type: data.token_type
+            } 
+            localStorage.setItem('client', JSON.stringify(credentials));*/
+            
             localStorage.setItem('accesstoken', data.access_token); 
+ 
             return data.access_token;   
 
         } catch( err ) {
