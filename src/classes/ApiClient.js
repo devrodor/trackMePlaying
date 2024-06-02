@@ -24,7 +24,7 @@ export class ApiClient {
         const client = clientString ? JSON.parse(clientString) : null; 
         const now = Date.now();
 
-        if (!client || (now > client.expires_limit)) {
+        if (!client || (now > client.expires_limit)) { //checks now time vs expires_limit generated bellow
 
              try {
 
@@ -36,7 +36,7 @@ export class ApiClient {
                 }
                 const data = await response.json(); 
  
-                let expiration = now + data.expires_in * 1000; // converts expires_in to milisegundos and adds now time in miliseconds
+                let expiration = now + data.expires_in * 1000; // converts expires_in to miliseconds and adds now time in miliseconds
 
                 let credentials = {
                         access_token: data.access_token, 
@@ -50,6 +50,7 @@ export class ApiClient {
              }
 
         }    
+
         return client.access_token;
     } 
 //}
