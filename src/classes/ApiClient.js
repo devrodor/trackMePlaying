@@ -21,10 +21,10 @@ export class ApiClient {
         if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`);
 
         const clientString = localStorage.getItem('clientdata');
-        const client = clientString ? JSON.parse(clientString) : null; 
-        const now = Date.now();
+        let client = clientString ? JSON.parse(clientString) : null; 
+        const now = Date.now(); 
 
-        if (!client || (now > client.expires_limit)) { //checks now time vs expires_limit generated bellow
+        if (!client || (client && (now > client.expires_limit))) { //checks now time vs expires_limit generated bellow
 
              try {
 
@@ -38,13 +38,13 @@ export class ApiClient {
  
                 let expiration = now + data.expires_in * 1000; // converts expires_in to miliseconds and adds now time in miliseconds
 
-                let credentials = {
+                client = {
                         access_token: data.access_token, 
                         expires_in: data.expires_in, 
                         expires_limit: expiration,  
                         token_type: data.token_type
-                    } 
-                localStorage.setItem('clientdata', JSON.stringify(credentials)); 
+                } ;
+                localStorage.setItem('clientdata', JSON.stringify(client)); 
              } catch( err ) {
                  throw err;
              }

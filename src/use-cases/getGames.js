@@ -24,8 +24,8 @@ export const getGames = async (endpoint, fields) => {
 
         return games.map(DataMapper.mapGame);
    
-    } catch (error) {
- 
+    } catch (error) { 
+        console.log(error);
         throw new Error('Connection error');
     }
 };
