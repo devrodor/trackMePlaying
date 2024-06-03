@@ -24,7 +24,7 @@ export class ApiClient {
         let client = clientString ? JSON.parse(clientString) : null; 
         const now = Date.now(); 
 
-        if (!client || (client && (now > client.expires_limit))) { // fixed both checks
+        if (!client || (client && (now > client.expires_limit))) { // fixed both checks...
 
              try {
 
