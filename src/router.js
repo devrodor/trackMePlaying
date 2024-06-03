@@ -4,6 +4,7 @@ import { renderSinglePost } from './ui/templates/singlePostTemplate';
 /**
  * 
  * @returns {Object}
+ * @params
  */
 //todo: check exceptions
 const Router = () => {
