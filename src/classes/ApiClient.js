@@ -18,7 +18,7 @@ export class ApiClient {
     async generateToken() {
   
         if(!this.proxyUrl) throw new Error(`Initialization error. No valid proxy URL`); 
-        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`);
+        if(!this.twitchUrl) throw new Error(`Initialization error. No valid endpoint`); // stops
 
         const clientString = localStorage.getItem('clientdata');
         let client = clientString ? JSON.parse(clientString) : null; 
