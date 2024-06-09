@@ -57,7 +57,7 @@ export class ApiClient {
 
     /**
      * api call
-     * @param {string} servicePath - api endpoint (ejemplo: '/games/31910'). 
+     * @param {string} servicePath - api endpoint (ex: '/games/31910'). 
      * @returns {Promise<Object>} - api response
      */
      async apiConn( accessToken, servicePath = '/games', body = { fields: '*' }, params = { limit: 1 } ) {
@@ -78,14 +78,11 @@ export class ApiClient {
  
                 if(response !== 401) {
                     //control 401 response
-                    await this.generateToken(); // instancio metodo
+                    await this.generateToken(); 
                 } 
                 return response.json();
-            } catch (error) {  
-                console.log(response.json);
-                console.error("Error fetching data: ", error);
+            } catch (error) {    
                 throw error;
-             
             }
   
         }

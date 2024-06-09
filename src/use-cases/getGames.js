@@ -2,6 +2,8 @@ import { ApiClient } from "../classes/ApiClient";
 import { DataMapper} from "../classes/DataMapper";
 import { ManageErrors } from "../classes/ManageErrors";
 
+const root = document.getElementById('app');
+
 /**
  * 
  * @param {Object} fields 
@@ -24,9 +26,10 @@ export const getGames = async (endpoint, fields) => {
 
         return games.map(DataMapper.mapGame);
    
-    } catch (error) { 
-        console.log(error);
-        throw new Error('Connection error');
+    } catch (error) {  
+        const showError = new ManageErrors(root,"Failed to get gamelist. Refresh or report");
+        showError.printError();
+        throw new Error(error);
     }
 };
  
