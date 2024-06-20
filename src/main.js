@@ -1,14 +1,17 @@
 import './assets/css/style.css'; 
-import Router from './Router'; 
+import Router from './router'; 
 import UserData from './classes/UserData';
 import { getGames } from './use-cases/getGames'; 
+import { getFilters } from './use-cases/getFilters';
 import { loadMore } from './use-cases/loadMoreGames';  
 import { doSearch, doSuggestSearch } from './use-cases/searchGames'; 
 
 const user = new UserData();
 
+//elements
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search');
+const filterGrid = document.getElementById('filterGrid');
 
 const limitEntries = 50; 
  
@@ -26,6 +29,14 @@ switch(router.templateName){
             //search
             searchBar.addEventListener('keyup', () => {    
                 doSearch(searchBar);
+            });
+
+            //filters
+         
+            filterGrid.addEventListener('click', ()=>{
+                const filters = getFilters(filterGrid);
+                console.log(filters);
+
             });
 
             //loadMore

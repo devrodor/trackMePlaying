@@ -1,7 +1,7 @@
 import { getGames } from "./getGames"; 
 import { renderSuggestedPost } from "../ui/templates/suggestedPostTemplate";
 import UserData from "../classes/UserData";
-import Router from "../Router";
+import Router from "../router";
 
 const root = document.getElementById('app'); 
 const router = Router(); 

@@ -1,6 +1,6 @@
 import UserData from "../classes/UserData"; 
 import { getGames } from "./getGames";
-import Router from "../Router";
+import Router from "../router";
 
 const userData = new UserData(); // reset on every instantiation.
 const router = Router(); 
