@@ -12,6 +12,8 @@ const user = new UserData();
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search');
 const filterGrid = document.getElementById('filterGrid');
+const filterButtons = document.getElementsByClassName('filterChecks');
+
 
 const limitEntries = 50; 
  
@@ -31,11 +33,14 @@ switch(router.templateName){
                 doSearch(searchBar);
             });
 
-            //filters
-         
-            filterGrid.addEventListener('click', ()=>{
-                const filters = getFilters(filterGrid);
+            //filters  
+            filterGrid.addEventListener('click', (e)=>{
+
+              if (e.target.matches('.filterChecks') || e.target.closest('.filterChecks')) {
+                e.stopPropagation();
+                const filters = getFilters(filterButtons);
                 console.log(filters);
+              }
 
             });
 
