@@ -1,10 +1,11 @@
 # Pending (Short term)
 
-* Filter buttons (New, Order by...) 
+* Refactor use-cases to implement filters
+* Implement filters: get platforms & release date as dropdowns
+* Implement filters on use-cases: search, load more
 * Finish game profile template
 * Loading placeholders on games grid
-* Night mode
-* Refactor
+* Night mode 
 
 # Implementation (Long term)
 
