@@ -1,7 +1,9 @@
 import { getGames } from "./getGames"; 
+import { getFilters } from "./getFilters";
 import { renderSuggestedPost } from "../ui/templates/suggestedPostTemplate";
 import UserData from "../classes/UserData";
 import Router from "../router";
+import { doFilterGames } from "./filterGames";
 
 const root = document.getElementById('app'); 
 const router = Router(); 
@@ -10,7 +12,8 @@ const userData = new UserData();
 const searchBar = document.getElementById('default-search');
 const loading = document.getElementById('spinner');
 const loadMoreButton = document.getElementById('loadMore');
-const cancelButton = document.getElementById('clear-search');
+const cancelButton = document.getElementById('clear-search'); 
+const filterButtons = document.getElementsByClassName('filterChecks');
 
 let searchCancelled = false; 
 
@@ -47,6 +50,7 @@ let timerElement = null;
 
 export const doSearch = (searchelement) => {
 
+       let games = false;
        loading.style.display = 'flex'; 
        cancelButton.style.display = 'flex';
        loadMoreButton.disabled = false;
@@ -66,7 +70,19 @@ export const doSearch = (searchelement) => {
                 cancelButton.style.display = 'none'; //prevents cancels while async search
             }
 
-            const games = await searchGames(searchelement.value);   
+            //todo: implement filters here 
+            const filters = getFilters(filterButtons); 
+            const isFilterOn = filters.some(filter => {
+                return Object.values(filter).some(value => value === true);
+            });
+            if(isFilterOn) {
+                games = await doFilterGames(filters, searchelement.value);  
+            } else {
+                games = await searchGames(searchelement.value);  
+            }
+
+            console.log(filters); 
+            // const games = await searchGames(searchelement.value);   
             
             // seeking no results
             if(games.length === 0){

@@ -5,6 +5,7 @@ import { getGames } from './use-cases/getGames';
 import { getFilters } from './use-cases/getFilters';
 import { loadMore } from './use-cases/loadMoreGames';  
 import { doSearch, doSuggestSearch } from './use-cases/searchGames'; 
+import { doFilterGames } from './use-cases/filterGames';
 
 const user = new UserData();
 
@@ -13,12 +14,13 @@ const root = document.getElementById('app');
 const searchBar = document.getElementById('default-search');
 const filterGrid = document.getElementById('filterGrid');
 const filterButtons = document.getElementsByClassName('filterChecks');
-
-
-const limitEntries = 50; 
  
+const limitEntries = 50;  
 const router = Router();    
-  
+
+//todo: implement filters in all use-cases (search, load more...)
+//todo: add more filters (dropdown)
+
 // load template
 switch(router.templateName){
   default:
@@ -34,12 +36,13 @@ switch(router.templateName){
             });
 
             //filters  
-            filterGrid.addEventListener('click', (e)=>{
+            filterGrid.addEventListener('click', (e)=>{ 
 
               if (e.target.matches('.filterChecks') || e.target.closest('.filterChecks')) {
                 e.stopPropagation();
                 const filters = getFilters(filterButtons);
-                console.log(filters);
+                doFilterGames(filters,searchBar.value); 
+                
               }
 
             });

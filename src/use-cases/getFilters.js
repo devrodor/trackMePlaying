@@ -1,3 +1,8 @@
+/**
+ * 
+ * @param {*} nodes 
+ * @returns {}
+ */
 export const getFilters = (nodes) => {
     
     let filtersContainer = [];
@@ -9,7 +14,7 @@ export const getFilters = (nodes) => {
         
         filtersContainer.push({ 
             name: filterName,
-            estado: filterValue
+            status: filterValue
         });
  
 
@@ -17,3 +22,4 @@ export const getFilters = (nodes) => {
     return filtersContainer; 
    
 }
+ 
