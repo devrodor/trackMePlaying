@@ -1,5 +1,6 @@
 # Pending (Short term)
 
+* On-change platform input, fire search
 * Refactor use-cases to implement filters
 * Implement filters: get platforms & release date as dropdowns
 * Implement filters on use-cases: search, load more
@@ -17,5 +18,5 @@
 # Errors
 
 * Catch error when proxy server is not running (investigate further)
-* Catch error on bad request on getGames
+* Catch error on bad request on getData
 * Catch error on expired token

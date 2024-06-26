@@ -1,5 +1,5 @@
 import UserData from "../classes/UserData"; 
-import { getGames } from "./getGames";
+import { getData } from "./getData";
 import Router from "../router";
 
 const userData = new UserData(); // reset on every instantiation.
@@ -21,7 +21,7 @@ export const loadMore = async() => {
        let searchValue;
        (userSearch) ? searchValue = `where name ~ "${userLog.lastSearchTerm}"*;` : searchValue = ``;
  
-       await getGames('/games', 
+       await getData('/games', 
        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; ${searchValue}` }) 
        .then(games => { 
             loadMoreButton.disabled = false;

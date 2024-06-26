@@ -28,56 +28,41 @@
 
       <div class="mx-auto max-w-7xl px-6 lg:px-8"> 
         <!-- Title -->
-          <p class="mt-2 font-bold text-5xl text-sky-900 text-center">
+          <p class="mt-2 font-bold text-5xl text-sky-900 text-center hidden">
             <a href="/">trackMePlaying</a>
           </p>
-          <h3 class="text-base font-semibold text-center leading-7 text-sky-600 pb-45">by RodoR</h3> 
+          <h3 class="text-base font-semibold text-center leading-7 text-sky-600 pb-45 hidden">by RodoR</h3> 
           
-          <!-- Search -->
-          <form class="w-full mx-auto mb-5">   
-            <label for="default-search" class="mb-2 text-sm font-medium text-black sr-only dark:text-black">Search</label>
-            <div class="relative w-full mt-10">
-                <input type="text" id="default-search" class="block w-full p-4 text-sm text-black border border-gray-200 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="Search your game..." required />
-                 <div id="spinner" class="absolute inset-y-0 right-8 flex items-center pr-3">
-                    <div class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-l-transparent text-indigo-500 motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+          
+          <!-- Filters --> 
+          <div class="grid grid-cols-4 gap-3 mt-5">
+                <!-- Search -->
+                <div class="align-top col-span-3">
+                    <form>   
+                      <label for="default-search" class="mb-2 text-sm font-medium text-black sr-only dark:text-black">Search</label>
+                      <div class="relative w-full">
+                          <input type="text" id="default-search" class="block w-full p-4 text-sm text-black border border-gray-200 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black dark:focus:ring-sky-500 dark:focus:border-sky-500" placeholder="Search your game..." required />
+                          <div id="spinner" class="absolute inset-y-0 right-8 flex items-center pr-3">
+                              <div class="inline-block h-5 w-5 animate-spin rounded-full border-2 border-solid border-current border-l-transparent text-indigo-500 motion-reduce:animate-[spin_1.5s_linear_infinite]"></div>
+                          </div>
+                          <span id="clear-search" class="clear-button cursor-pointer absolute inset-y-0 right-3 flex items-center pr-3">&times;</span>
+                      </div>
+                      <div id="suggestedBox" class="container mx-auto border border-gray-200 p-5"><!-- suggested results --></div>
+                    </form> 
                 </div>
-                <span id="clear-search" class="clear-button cursor-pointer absolute inset-y-0 right-3 flex items-center pr-3">&times;</span>
-            </div>
-            <div id="suggestedBox" class="container mx-auto border border-gray-200 p-5"><!-- suggested results --></div>
-        </form>
-        <!-- Filter buttons -->
-        <div id="filterGrid" class="grid grid-rows-1 grid-flow-col gap-4">
-          <div class="w-full">
-            <button type="button" class="w-full focus:outline-none bg-zinc-300 hover:bg-zinc-400 focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-300 dark:hover:bg-zinc-300 dark:focus:ring-zinc-300">
-              <label class="inline-flex items-center cursor-pointer w-full">
-                <input type="checkbox" value="" class="sr-only peer filterChecks" data-filter="xbox">
-                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span class="ml-3 text-base font-medium text-black">Xbox Series X/S</span>
-              </label>
-            </button>
+                <!-- Platforms -->
+                <div class="align-top">
+
+                  <form> 
+                    <select id="platforms" class="block w-full p-4 text-sm text-black border border-gray-200 rounded-lg bg-gray-50 focus:ring-sky-500 focus:border-sky-500 dark:border-gray-500 dark:placeholder-gray-400 dark:text-black dark:focus:ring-sky-500 dark:focus:border-sky-500">
+                      <option selected>Choose a Platform</option>
+                     
+                    </select>
+                  </form>
+
+                </div>
           </div>
-          <div class="w-full">
-            <button type="button" class="w-full focus:outline-none bg-zinc-300 hover:bg-zinc-400 focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-300 dark:hover:bg-zinc-300 dark:focus:ring-zinc-300">
-              <label class="inline-flex items-center cursor-pointer w-full">
-                <input type="checkbox" value="" class="sr-only peer filterChecks" data-filter="psn">
-                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span class="ml-3 text-base font-medium text-black">Playstation</span>
-              </label>
-            </button>
-          </div>
-          <div class="w-full">
-            <button type="button" class="w-full focus:outline-none bg-zinc-300 hover:bg-zinc-400 focus:ring-4 focus:ring-zinc-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-zinc-300 dark:hover:bg-zinc-300 dark:focus:ring-zinc-300">
-              <label class="inline-flex items-center cursor-pointer w-full">
-                <input type="checkbox" value="" class="sr-only peer filterChecks" data-filter="nintendo">
-                <div class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 rounded-full peer dark:bg-gray-700 peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-blue-600"></div>
-                <span class="ml-3 text-base font-medium text-black">Nintendo</span>
-              </label>
-            </button>
-          </div>
-          
-        </div>
-        <!-- end Filter buttons -->
-          
+ 
           <!-- app root -->
           <div id="app" class="py-5"></div>
           <!-- end app root -->

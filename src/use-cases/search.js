@@ -7,13 +7,15 @@ const root = document.getElementById('app');
 const router = Router(); 
 const userData = new UserData();
 
-const searchBar = document.getElementById('default-search');
+const searchBar                 = document.getElementById('default-search');
+const searchFilterPlatform      = document.getElementById('platforms');   
+
 const loading = document.getElementById('spinner');
 const loadMoreButton = document.getElementById('loadMore');
 const cancelButton = document.getElementById('clear-search');  
 
 let searchCancelled = false; 
-
+let filters = '';
 
 document.addEventListener('click', (event) => {
         if(event.target !== searchBar) {
@@ -22,11 +24,11 @@ document.addEventListener('click', (event) => {
 
 })
 
-const searchGames = async( searchTerm ) => {
+const searchGames = async(searchelement, filters) => {
 
         //element.value;
-        return await getData('/games', 
-        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit 30; where name ~ "${searchTerm}"*;` }) 
+        return await getData('/games',  
+        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit 30; where ${filters} name ~ "${searchelement}"*;` }) 
         .then( (games) => games );
 
 } 
@@ -62,29 +64,38 @@ export const doSearch = (searchelement) => {
                 searchCancelled = true; 
         }));   
  
-            if(searchelement.value != ''){
+        if(searchelement.value != ''){
                 cancelButton.style.display = 'none'; //prevents cancels while async search
-            }
+        }
 
+        //filter logic here
+        const filterPlatform = searchFilterPlatform.value;
+     
+        if(filterPlatform) { 
+                filters = `platforms = ${filterPlatform} & `;
+         }  
             
-        const games = await searchGames(searchelement.value);   
-            
-            // seeking no results
-            if(games.length === 0){
-               noResults(root,'No results!');
-               loading.style.display = 'none';
-               return;
-            }
+        //bellow remains unaltered
+        const games = await searchGames(searchelement.value, filters);   
 
-            router.renderMethod( root, games ); 
+        //where name ~ "${searchTerm}"*
+        
+        // seeking no results
+        if(games.length === 0){
+        noResults(root,'No results!');
+        loading.style.display = 'none';
+        return;
+        }
 
-            //todo: encapsulate userdata set
-            userData.setUserData('lastSearchTerm', searchelement.value);
-            userData.setUserData('resulTerms', games);
-            userData.setUserData('offset', 0);
-          
-            loading.style.display = 'none';
-            searchCancelled = false;
+        router.renderMethod( root, games ); 
+
+        //todo: encapsulate userdata set
+        userData.setUserData('lastSearchTerm', searchelement.value);
+        userData.setUserData('resulTerms', games);
+        userData.setUserData('offset', 0);
+        
+        loading.style.display = 'none';
+        searchCancelled = false;
 
 
         }, 400); 

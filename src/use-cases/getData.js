@@ -10,7 +10,7 @@ const root = document.getElementById('app');
  * @param {Object} params 
  * @returns {Promise}
  */
-export const getGames = async (endpoint, fields) => {
+export const getData = async (endpoint, fields) => {
 
     const apiClient = new ApiClient();
     try {
