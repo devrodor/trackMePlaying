@@ -1,3 +1,0 @@
-export const filterGames = (limit,offset) => {
-    //silence is golden...   
-}

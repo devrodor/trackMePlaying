@@ -3,6 +3,7 @@ import Router from './router';
 import UserData from './classes/UserData';
 import { getData } from './use-cases/getData';  
 import { loadMore } from './use-cases/loadMoreGames';  
+import { getPlatforms } from './use-cases/getPlatforms';
 //import { doSearch, doSuggestSearch } from './use-cases/searchGames';  
 import { doSearch, doSuggestSearch } from './use-cases/search';  
 
@@ -11,6 +12,7 @@ const user = new UserData();
 //elements
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search'); 
+const selectPlatforms = document.getElementById('platforms');
  
 const limitEntries = 50;  
 const router = Router();    
@@ -30,16 +32,14 @@ switch(router.templateName){
             }); 
 
             //filter 
-            const selectPlatforms = document.getElementById('platforms'); 
+            getPlatforms(selectPlatforms); 
 
-            try {
-              const platforms = await getData('/platforms', { fields: `fields name; limit 500; offset 0; sort name asc;` }); 
-              platforms.unshift({id: undefined, name: "-- SELECCIONA --"}); 
-              selectPlatforms.innerHTML = platforms.map(platform => `<option value="${platform.id === undefined ? '' : platform.id}">${platform.name}</option>`).join(''); 
+            selectPlatforms.addEventListener('change',()=>{
+              if(searchBar.value !== '') {
+                doSearch(searchBar);
+              }
 
-            } catch (error) {
-              
-            }  
+            })
 
             //loadMore
             const butonMore = document.getElementById('loadMore'); 

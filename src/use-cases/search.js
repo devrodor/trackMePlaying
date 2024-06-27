@@ -14,6 +14,7 @@ const loading = document.getElementById('spinner');
 const loadMoreButton = document.getElementById('loadMore');
 const cancelButton = document.getElementById('clear-search');  
 
+let timerElement = null;
 let searchCancelled = false; 
 let filters = '';
 
@@ -25,7 +26,7 @@ document.addEventListener('click', (event) => {
 })
 
 const searchGames = async(searchelement, filters) => {
-
+ 
         //element.value;
         return await getData('/games',  
         { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit 30; where ${filters} name ~ "${searchelement}"*;` }) 
@@ -44,9 +45,7 @@ const noResults = (element, message) => {
         return element.appendChild(wrapper);
 
  }
- 
-let timerElement = null;
-
+  
 export const doSearch = (searchelement) => {
  
        loading.style.display = 'flex'; 
@@ -68,13 +67,15 @@ export const doSearch = (searchelement) => {
                 cancelButton.style.display = 'none'; //prevents cancels while async search
         }
 
+      
+
         //filter logic here
         const filterPlatform = searchFilterPlatform.value;
      
         if(filterPlatform) { 
-                filters = `platforms = ${filterPlatform} & `;
+                filters = `platforms = ${filterPlatform} &`;
          }  
-            
+ 
         //bellow remains unaltered
         const games = await searchGames(searchelement.value, filters);   
 
