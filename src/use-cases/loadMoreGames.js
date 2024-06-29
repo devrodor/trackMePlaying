@@ -1,5 +1,6 @@
 import { getData } from "./getData";
-import Router from "../router";  
+import Router from "../router";   
+import searchData from '../helpers/searchData';
 
 const router = Router(); 
 const root = document.getElementById('app'); 
@@ -7,14 +8,16 @@ const searchBar = document.getElementById('default-search');
 const loadMoreButton = document.getElementById('loadMore'); 
 
 //todo: refactor
-export const loadMore = async(datauser) => {  
-        
+export const loadMore = async() => {  
+ 
        const userSearch = searchBar.value;
-       const userPlatform = datauser.userObj.platform; 
-       const userOffset = datauser.userObj.offset;
-       const userTerms = datauser.userObj.resulTerms; 
+       const userPlatform = searchData.platform; 
+       const userOffset = searchData.offset;
+       const userTerms = searchData.resulTerms; 
        const offset = userOffset + 30;
-       const limit = datauser.userObj.limit;
+       const limit = searchData.limit;
+
+       console.log('Objeto obtenido para añadir: ', userTerms)
  
        let searchValue;
        let platformValue;
@@ -37,15 +40,15 @@ export const loadMore = async(datauser) => {
         })
         .then((newGames) => { 
             router.renderMethod( root, newGames ); 
-            datauser.userObj.resulTerms = newGames;
-            datauser.userObj.lastSearchTerm = searchBar.value;
+            searchData.resulTerms = newGames;
+            searchData.lastSearchTerm = searchBar.value;
          
         })
         .catch(error => {
             console.error('Error fetching games:', error);
         })
         .finally(()=>{
-            datauser.userObj.offset = offset; 
+            searchData.offset = offset; 
         })  
          
  

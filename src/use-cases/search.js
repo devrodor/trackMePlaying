@@ -1,11 +1,10 @@
 import { getData } from "./getData";  
 import { renderSuggestedPost } from "../ui/templates/suggestedPostTemplate";
-import SearchData from "../classes/SearchData";
+import searchData from '../helpers/searchData';
 import Router from "../router"; 
 
 const root = document.getElementById('app'); 
-const router = Router();  
-const dataUser = new SearchData();
+const router = Router();   
 
 const searchBar                 = document.getElementById('default-search');
 const searchFilterPlatform      = document.getElementById('platforms');   
@@ -91,15 +90,12 @@ export const doSearch = (searchelement) => {
                 return;
         }
 
-        router.renderMethod( root, games ); 
- 
-        console.log(dataUser);
+        searchData.lastSearchTerm = searchelement.value;
+        searchData.platform = eval(filterPlatform); 
+        searchData.resulTerms = games;  
+        searchData.offset = 0;   
 
-        dataUser.userObj.lastSearchTerm = searchelement.value;
-        dataUser.userObj.platform = eval(filterPlatform); 
-        dataUser.userObj.resulTerms = games;  
-        dataUser.userObj.offset = 0;   
-        
+        router.renderMethod( root, games ); 
         loading.style.display = 'none';
         searchCancelled = false; 
 

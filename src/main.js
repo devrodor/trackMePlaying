@@ -1,16 +1,14 @@
 import './assets/css/style.css'; 
 import Router from './router';  
- 
-import SearchData from './classes/SearchData';
+  
+import searchData from './helpers/searchData'; 
+
 import { getData } from './use-cases/getData';  
 import { loadMore } from './use-cases/loadMoreGames';  
 import { getPlatforms } from './use-cases/getPlatforms';
 //import { doSearch, doSuggestSearch } from './use-cases/searchGames';  
 import { doSearch, doSuggestSearch } from './use-cases/search';  
-
-
-//const user = new UserData();
-const datauser = new SearchData();
+ 
 
 //elements
 const root = document.getElementById('app'); 
@@ -27,7 +25,7 @@ switch(router.templateName){
 
             await getData('/games', 
                           { fields: `fields name, summary, cover.url, artworks.url, screenshots.url, similar_games.name; limit ${limitEntries};` })
-                          .then(( games )=> { datauser.initState(games); return games; })
+                          .then(( games )=> { searchData.resulTerms = games; return games; })
                           .then(( games )=> router.renderMethod( root, games )) 
             //search
             searchBar.addEventListener('keyup', () => {    
@@ -40,14 +38,14 @@ switch(router.templateName){
             //todo: reset filter in userObject to search all platforms in case no platform is selected
             selectPlatforms.addEventListener('change',()=>{
                 doSearch(searchBar); 
-                datauser.setUserData('platform', eval(selectPlatforms.value));
+                searchData.platform = eval(selectPlatforms.value); 
             })
 
             //loadMore
             const butonMore = document.getElementById('loadMore'); 
             butonMore.style.display = 'flex';
             butonMore.addEventListener('click',  () => {  
-              loadMore(datauser);  
+              loadMore();  
             });  
             break;
 
