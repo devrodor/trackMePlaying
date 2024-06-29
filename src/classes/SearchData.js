@@ -4,6 +4,8 @@ class SearchData {
  
     constructor() {  
 
+        if(!this.userObj) {
+          
             this.userObj = {
                 lastSearchTerm: null,
                 platform: null,
@@ -11,25 +13,24 @@ class SearchData {
                 offset: 0,
                 resulTerms: null 
             }; 
+        }
+ 
     }
 
     initState(data) {
 
         this.userObj.resulTerms = data; 
-        console.log(this.userObj);
 
     }
 
     getUserData() {
 
         this.userObj;
-        console.log(this.userObj);
     }
       
     setUserData(prop,value) { 
 
         this.userObj[prop] = value;
-        console.log(this.userObj); 
 
     } 
 

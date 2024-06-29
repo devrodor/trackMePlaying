@@ -72,10 +72,13 @@ export const doSearch = (searchelement) => {
 
         //filter logic here
         const filterPlatform = searchFilterPlatform.value;
-
-        console.log(filterPlatform);
+ 
+        //dataUser.setUserData('platform', eval(filterPlatform));
      
-        if(filterPlatform && filterPlatform !== '') {  
+        if(filterPlatform === '') {  
+                filters = '';
+        }
+        else {
                 filters = `platforms = ${filterPlatform} &`;
         }  
  
@@ -89,16 +92,16 @@ export const doSearch = (searchelement) => {
         }
 
         router.renderMethod( root, games ); 
+ 
+        console.log(dataUser);
 
-        //todo: encapsulate userdata set
-        dataUser.setUserData('lastSearchTerm', searchelement.value);
-        dataUser.setUserData('platform', eval(filterPlatform));
-        dataUser.setUserData('resulTerms', games);
-        dataUser.setUserData('offset', 0);
+        dataUser.userObj.lastSearchTerm = searchelement.value;
+        dataUser.userObj.platform = eval(filterPlatform); 
+        dataUser.userObj.resulTerms = games;  
+        dataUser.userObj.offset = 0;   
         
         loading.style.display = 'none';
-        searchCancelled = false;
-
+        searchCancelled = false; 
 
         }, 400); 
                

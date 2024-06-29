@@ -1,28 +1,24 @@
 import { getData } from "./getData";
-import Router from "../router";
-import SearchData from "../classes/SearchData";
+import Router from "../router";  
 
-//const userData = new UserData(); // reset on every instantiation.
-const dataUser = new SearchData();
 const router = Router(); 
 const root = document.getElementById('app'); 
-const loadMoreButton = document.getElementById('loadMore');
+const searchBar = document.getElementById('default-search'); 
+const loadMoreButton = document.getElementById('loadMore'); 
 
 //todo: refactor
-export const loadMore = async() => {  
-       
-       const userLog = dataUser.getUserData();
-
-       const userSearch = userLog.lastSearchTerm;
-       const userPlatform = userLog.platform; 
-       const userOffset = userLog.offset;
-       const userTerms = userLog.resulTerms; 
+export const loadMore = async(datauser) => {  
+        
+       const userSearch = searchBar.value;
+       const userPlatform = datauser.userObj.platform; 
+       const userOffset = datauser.userObj.offset;
+       const userTerms = datauser.userObj.resulTerms; 
        const offset = userOffset + 30;
-       const limit = userLog.limit;
+       const limit = datauser.userObj.limit;
  
        let searchValue;
        let platformValue;
-       (userSearch) ? searchValue = `name ~ "${userSearch}"*;` : searchValue = ``;
+       (userSearch) ? searchValue = `name ~ "${userSearch}"*;` : searchValue = `name ~ ""*;`;
        (userPlatform) ? platformValue = `platforms = ${userPlatform} &` : platformValue = ``;
 
        console.log(`fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; where ${platformValue} ${searchValue}`);
@@ -41,14 +37,16 @@ export const loadMore = async() => {
         })
         .then((newGames) => { 
             router.renderMethod( root, newGames ); 
-            dataUser.setUserData('resulTerms', newGames);  
+            datauser.userObj.resulTerms = newGames;
+            datauser.userObj.lastSearchTerm = searchBar.value;
+         
         })
         .catch(error => {
             console.error('Error fetching games:', error);
-        }) 
-        .finally(() => {   
-            dataUser.setUserData('offset', offset);
         })
-        
+        .finally(()=>{
+            datauser.userObj.offset = offset; 
+        })  
+         
  
 }

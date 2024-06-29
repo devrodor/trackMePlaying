@@ -24,7 +24,7 @@ export const getData = async (endpoint, fields) => {
                 fields
             );
 
-        console.log(fields);
+        //console.log(fields);
         return games.map(DataMapper.mapGame);
    
     } catch (error) {  

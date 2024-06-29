@@ -40,14 +40,14 @@ switch(router.templateName){
             //todo: reset filter in userObject to search all platforms in case no platform is selected
             selectPlatforms.addEventListener('change',()=>{
                 doSearch(searchBar); 
-                datauser.setUserData('platform',eval(selectPlatforms.value));
+                datauser.setUserData('platform', eval(selectPlatforms.value));
             })
 
             //loadMore
             const butonMore = document.getElementById('loadMore'); 
             butonMore.style.display = 'flex';
             butonMore.addEventListener('click',  () => {  
-              loadMore();  
+              loadMore(datauser);  
             });  
             break;
 
