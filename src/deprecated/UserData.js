@@ -4,19 +4,22 @@ class UserData {
  
     constructor() { 
 
+        this.uSearch = 'searchLog';
+
         //creates userObj and inserts it into localStorage
-        const loadedData = localStorage.getItem('trackUserPrefs');
+        const loadedData = localStorage.getItem(this.uSearch);
 
         if(loadedData === null) {
 
             this.userObj = {
                 lastSearchTerm: null,
+                platform: null,
                 limit: 30,
                 offset: 0,
                 resulTerms: null 
             };
             
-            localStorage.setItem('trackUserPrefs', JSON.stringify(this.userObj));
+            localStorage.setItem(this.uSearch, JSON.stringify(this.userObj));
             
         }
 
@@ -24,20 +27,19 @@ class UserData {
 
     initState(data) {
  
-        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
-         
+        const userLog = JSON.parse(localStorage.getItem(this.uSearch));
         userLog.resulTerms = data;
-
-        localStorage.setItem('trackUserPrefs', JSON.stringify(userLog));
+        localStorage.setItem(this.uSearch, JSON.stringify(userLog));
 
     }
 
     getUserData() {
 
         const userData = {};
-        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
+        const userLog = JSON.parse(localStorage.getItem(this.uSearch));
  
         userData.lastSearchTerm = userLog.lastSearchTerm;
+        userData.platform = eval(userLog.platform);
         userData.limit = userLog.limit;
         userData.offset = userLog.offset;
         userData.resulTerms = userLog.resulTerms;
@@ -48,11 +50,11 @@ class UserData {
 
     setUserData(prop,value) {
          
-        const userLog = JSON.parse(localStorage.getItem('trackUserPrefs'));
+        const userLog = JSON.parse(localStorage.getItem(this.uSearch));
 
         userLog[prop] = value;
 
-        localStorage.setItem('trackUserPrefs', JSON.stringify(userLog));
+        localStorage.setItem(this.uSearch, JSON.stringify(userLog));
 
     }
 

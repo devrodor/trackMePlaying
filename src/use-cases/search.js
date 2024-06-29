@@ -1,11 +1,11 @@
 import { getData } from "./getData";  
 import { renderSuggestedPost } from "../ui/templates/suggestedPostTemplate";
-import UserData from "../classes/UserData";
+import SearchData from "../classes/SearchData";
 import Router from "../router"; 
 
 const root = document.getElementById('app'); 
-const router = Router(); 
-const userData = new UserData();
+const router = Router();  
+const dataUser = new SearchData();
 
 const searchBar                 = document.getElementById('default-search');
 const searchFilterPlatform      = document.getElementById('platforms');   
@@ -25,11 +25,10 @@ document.addEventListener('click', (event) => {
 
 })
 
-const searchGames = async(searchelement, filters) => {
- 
-        //element.value;
+const searchGames = async(searchelement, filters, limit = 30) => {
+  
         return await getData('/games',  
-        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit 30; where ${filters} name ~ "${searchelement}"*;` }) 
+        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; where ${filters} name ~ "${searchelement}"*;` }) 
         .then( (games) => games );
 
 } 
@@ -45,7 +44,11 @@ const noResults = (element, message) => {
         return element.appendChild(wrapper);
 
  }
-  
+ 
+ /**
+  * 
+  * @param {*} searchelement 
+  */
 export const doSearch = (searchelement) => {
  
        loading.style.display = 'flex'; 
@@ -67,33 +70,31 @@ export const doSearch = (searchelement) => {
                 cancelButton.style.display = 'none'; //prevents cancels while async search
         }
 
-      
-
         //filter logic here
         const filterPlatform = searchFilterPlatform.value;
-     
-        if(filterPlatform) { 
-                filters = `platforms = ${filterPlatform} &`;
-         }  
- 
-        //bellow remains unaltered
-        const games = await searchGames(searchelement.value, filters);   
 
-        //where name ~ "${searchTerm}"*
-        
+        console.log(filterPlatform);
+     
+        if(filterPlatform && filterPlatform !== '') {  
+                filters = `platforms = ${filterPlatform} &`;
+        }  
+ 
+        console.log(filters);
+        const games = await searchGames(searchelement.value, filters);    
         // seeking no results
         if(games.length === 0){
-        noResults(root,'No results!');
-        loading.style.display = 'none';
-        return;
+                noResults(root,'No results!');
+                loading.style.display = 'none';
+                return;
         }
 
         router.renderMethod( root, games ); 
 
         //todo: encapsulate userdata set
-        userData.setUserData('lastSearchTerm', searchelement.value);
-        userData.setUserData('resulTerms', games);
-        userData.setUserData('offset', 0);
+        dataUser.setUserData('lastSearchTerm', searchelement.value);
+        dataUser.setUserData('platform', eval(filterPlatform));
+        dataUser.setUserData('resulTerms', games);
+        dataUser.setUserData('offset', 0);
         
         loading.style.display = 'none';
         searchCancelled = false;
