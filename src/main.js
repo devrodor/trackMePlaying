@@ -51,9 +51,10 @@ switch(router.templateName){
             await getData('/games', 
                           { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; where id = ${router.itemId};` }) 
                           .then(( games )=> router.renderMethod( root, games ));
-                          document.addEventListener('keyup', () => {   
-                              doSuggestSearch();
-                          });  
+            //suggested search
+            document.addEventListener('keyup', () => {   
+                doSuggestSearch();
+            });  
                           
             break;         
 

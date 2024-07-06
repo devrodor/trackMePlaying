@@ -1,5 +1,6 @@
 # Pending (Short term)
- 
+
+* Refactor 
 * Implement filters: release date
 * Finish game profile template
 * Loading placeholders on games grid

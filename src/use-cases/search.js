@@ -79,15 +79,8 @@ export const doSearch = (searchelement) => {
 
         //filter logic here
         const filterPlatform = searchFilterPlatform.value; 
-     
-        if(filterPlatform === '') {  
-                filters = '';
-        }
-        else {
-                
-                //filters = `platforms = ${filterPlatform} &`;
-                filters = `release_dates.platform = (${filterPlatform}) &`;
-        }   
+        (filterPlatform === '') ? filters = '' :  filters = `release_dates.platform = (${filterPlatform}) &`;
+ 
 
         const games = await searchGames(searchelement.value, filters);    
         // seeking no results
