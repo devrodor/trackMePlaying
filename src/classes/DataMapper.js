@@ -15,7 +15,7 @@ export class DataMapper {
         screenshots: data.screenshots,
         similar_games: data.similar_games,
         summary: data.summary,
-        storyline: data.storyline,
+        storyline: data.storyline, 
         involved_companies: data.involved_companies
       };
     }

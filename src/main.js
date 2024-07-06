@@ -18,6 +18,13 @@ const selectPlatforms = document.getElementById('platforms');
 const limitEntries = 50;  
 const router = Router();    
  
+//filters by platform
+getPlatforms(selectPlatforms); 
+selectPlatforms.addEventListener('change',()=>{
+  doSearch(searchBar); 
+  searchData.platform = eval(selectPlatforms.value); 
+})
+ 
 // load template
 switch(router.templateName){
   default:
@@ -30,16 +37,7 @@ switch(router.templateName){
             //search
             searchBar.addEventListener('keyup', () => {    
                 doSearch(searchBar);
-            }); 
-
-            //filter 
-            getPlatforms(selectPlatforms); 
-
-            //todo: reset filter in userObject to search all platforms in case no platform is selected
-            selectPlatforms.addEventListener('change',()=>{
-                doSearch(searchBar); 
-                searchData.platform = eval(selectPlatforms.value); 
-            })
+            });  
 
             //loadMore
             const butonMore = document.getElementById('loadMore'); 

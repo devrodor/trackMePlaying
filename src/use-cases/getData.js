@@ -18,14 +18,18 @@ export const getData = async (endpoint, fields) => {
         if (!accessToken) {
             throw new Error('Unable to generate access token');
         }
-        const games = await apiClient.apiConn(
+        const response = await apiClient.apiConn(
                 accessToken,
                 endpoint,
                 fields
             );
 
-        //console.log(fields);
-        return games.map(DataMapper.mapGame);
+        console.log(response);
+        const games = response.map(DataMapper.mapGame);
+        games.totals = eval(response.totals);     
+
+
+        return games;
    
     } catch (error) {  
         const showError = new ManageErrors(root,"Failed to get gamelist. Refresh or report");

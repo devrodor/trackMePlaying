@@ -6,6 +6,7 @@ const router = Router();
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search'); 
 const loadMoreButton = document.getElementById('loadMore'); 
+let fetched = searchData.limit;
 
 //todo: refactor
 export const loadMore = async() => {  
@@ -15,8 +16,8 @@ export const loadMore = async() => {
        const userOffset = searchData.offset;
        const userTerms = searchData.resulTerms; 
        const offset = userOffset + 30;
-       const limit = searchData.limit;
-
+       let limit = searchData.limit;  
+       
        console.log('Objeto obtenido para añadir: ', userTerms)
  
        let searchValue;
@@ -29,11 +30,15 @@ export const loadMore = async() => {
        await getData('/games', 
        { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; offset ${offset}; where ${platformValue} ${searchValue}` }) 
        .then(games => { 
-            loadMoreButton.disabled = false;
+        
+            fetched = fetched + limit;
+            loadMoreButton.disabled = false;   
 
-            if(games.length <= 1) { 
-                loadMoreButton.disabled = true; 
-            } 
+            if(fetched >= games.totals) {
+                console.log(limit);   
+                loadMoreButton.classList.add('disabled:opacity-75');    
+                loadMoreButton.disabled = true;
+            }
 
             const newGames = [...userTerms,...games];
             return newGames;

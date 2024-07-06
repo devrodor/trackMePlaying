@@ -76,11 +76,21 @@ export class ApiClient {
                     body: body.fields,
                 });  
  
+                console.log(body.fields); 
+
                 if(response !== 401) {
                     //control 401 response
                     await this.generateToken(); 
                 } 
-                return response.json();
+ 
+                const headers = response.headers;
+                const totals = headers.get('x-count');
+             
+                const data = await response.json(); // await here is necessary, as we want to get the whole json before inserting headers
+                data.totals = totals; 
+        
+                return data;
+
             } catch (error) {    
                 throw error;
             }

@@ -15,6 +15,7 @@ const cancelButton = document.getElementById('clear-search');
 
 let timerElement = null;
 let searchCancelled = false; 
+let fetched = searchData.limit;
 let filters = '';
 
 document.addEventListener('click', (event) => {
@@ -24,11 +25,18 @@ document.addEventListener('click', (event) => {
 
 })
 
-const searchGames = async(searchelement, filters, limit = 30) => {
+const searchGames = async(searchelement, filters, limit = searchData.limit) => {
   
         return await getData('/games',  
         { fields: `fields name, summary, cover.url, artworks.url, cover.image_id, screenshots.url, similar_games.name; limit ${limit}; where ${filters} name ~ "${searchelement}"*;` }) 
-        .then( (games) => games );
+        .then((games) => { 
+                fetched = fetched + limit;
+                if(fetched >= games.totals) { 
+                    loadMoreButton.classList.add('disabled:opacity-75');    
+                    loadMoreButton.disabled = true;
+                } 
+                return games;
+        })
 
 } 
 
@@ -70,25 +78,24 @@ export const doSearch = (searchelement) => {
         }
 
         //filter logic here
-        const filterPlatform = searchFilterPlatform.value;
- 
-        //dataUser.setUserData('platform', eval(filterPlatform));
+        const filterPlatform = searchFilterPlatform.value; 
      
         if(filterPlatform === '') {  
                 filters = '';
         }
         else {
-                filters = `platforms = ${filterPlatform} &`;
-        }  
- 
-        console.log(filters);
+                
+                //filters = `platforms = ${filterPlatform} &`;
+                filters = `release_dates.platform = (${filterPlatform}) &`;
+        }   
+
         const games = await searchGames(searchelement.value, filters);    
         // seeking no results
         if(games.length === 0){
                 noResults(root,'No results!');
                 loading.style.display = 'none';
                 return;
-        }
+        } 
 
         searchData.lastSearchTerm = searchelement.value;
         searchData.platform = eval(filterPlatform); 
@@ -111,23 +118,34 @@ export const doSuggestSearch = () => {
         if(pathname != '/') { //must work only in single element view
 
              const searchBar  = document.getElementById('default-search');
+             const selectPlatforms = document.getElementById('platforms');
              const suggestBox = document.getElementById('suggestedBox');
              const loading    = document.getElementById('spinner');
 
-             document.addEventListener('keyup', () => {  
- 
+             const fetchSuggested = () => {
+
                 loading.style.display = 'flex';
 
                 clearTimeout(timerElement);
                 timerElement = setTimeout(async() => {
         
-                const games = await searchGames(searchBar.value);
+                const games = await searchGames(searchBar.value, filters);
+                //const games = await searchGames(searchelement.value, filters);
+
                 renderSuggestedPost(suggestBox,games); 
                 loading.style.display = 'none';
                 suggestBox.style.display = 'flex';
         
                 }, 400); 
 
+             }
+
+             selectPlatforms.addEventListener('change',()=>{
+                fetchSuggested();
+            });
+
+             document.addEventListener('keyup', () => {  
+                fetchSuggested();
              }); 
              
         }
