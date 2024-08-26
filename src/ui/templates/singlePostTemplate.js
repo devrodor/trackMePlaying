@@ -7,44 +7,36 @@
 export const renderSinglePost =  (container, singleElement) => {
  
     const [item] = singleElement; 
-    console.log(item.screenshots);
-    item.screenshots.forEach(element => {
-        console.log(element.url);
-    });
+ 
+    const screenshots = item.screenshots.map(element => {
+        return `<li class="inline-block mr-2 mb-2"><img src="${element.url}" alt="Screenshot" class="w-24 h-24 object-cover rounded"></li>`;
+    }).join('');
 
     const finalCover = (item.cover) ? "//images.igdb.com/igdb/image/upload/t_1080p/" + item.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
-    const screenshots =  
-    container.innerHTML = `<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="flex flex-col md:flex-row -mx-4">
-                    <div class="md:flex-1 px-4">
-                        <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
-                            <img class="w-full h-full object-cover" src="${finalCover}">
-                             <ul>`;
-                                container.innerHTML += screenshots;
-    container.innerHTML += `</ul>
-                        </div>
-                    </div>
-                    <div class="md:flex-1 px-4">
-                        <h2 class="text-2xl font-bold mb-2">${item.name}</h2>
-                        <p class="text-sm mb-4">
-                        ${item.summary}
-                        </p>
-                        
-                        <div>
-                            <span class="font-bold text-gray-700 dark:text-gray-300">Product Description:</span>
-                            <p class="text-sm mt-2">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
-                                sed ante justo. Integer euismod libero id mauris malesuada tincidunt. Vivamus commodo nulla ut
-                                lorem rhoncus aliquet. Duis dapibus augue vel ipsum pretium, et venenatis sem blandit. Quisque
-                                ut erat vitae nisi ultrices placerat non eget velit. Integer ornare mi sed ipsum lacinia, non
-                                sagittis mauris blandit. Morbi fermentum libero vel nisl suscipit, nec tincidunt mi consectetur.
-                            </p>
-                        </div>
-                    </div>
+   
+    container.innerHTML = `
+    <div">
+        <div class="flex flex-col md:flex-row -mx-4">
+            <div class="md:flex-1 px-4">
+                <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
+                    <img class="w-full h-full object-cover" src="${finalCover}"> 
+                </div>
+            </div>
+            <div class="md:flex-1 px-4">
+                <h1 class="text-4xl font-bold mb-2">${item.name}</h1>
+                <p class="text-sm mb-4">
+                    ${item.summary}
+                </p>
+                <div>
+                    <h2 class="text-2xl font-bold mb-2">Screenshots</h2>
+                    <ul class="flex flex-wrap p-0 m-0 list-none mt-4">
+                        ${screenshots}
+                    </ul>
                 </div>
             </div>
         </div>
-        `; 
+    </div>
+    `;
   
 
  
