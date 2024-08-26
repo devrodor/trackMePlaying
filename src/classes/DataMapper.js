@@ -5,8 +5,8 @@ export class DataMapper {
      * @returns {Array}
      */
     static mapGame(data) {
-      return {
 
+      return {
         id: data.id,
         checksum: data.checksum,
         artworks: data.artworks,
@@ -18,5 +18,6 @@ export class DataMapper {
         storyline: data.storyline, 
         involved_companies: data.involved_companies
       };
+
     }
   }

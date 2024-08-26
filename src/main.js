@@ -9,21 +9,20 @@ import { getPlatforms } from './use-cases/getPlatforms';
 //import { doSearch, doSuggestSearch } from './use-cases/searchGames';  
 import { doSearch, doSuggestSearch } from './use-cases/search';  
  
-
 //elements
 const root = document.getElementById('app'); 
 const searchBar = document.getElementById('default-search'); 
 const selectPlatforms = document.getElementById('platforms');
+
+//preload platforms
+getPlatforms(selectPlatforms); 
  
 const limitEntries = 50;  
 const router = Router();    
  
 //filters by platform
-getPlatforms(selectPlatforms); 
-selectPlatforms.addEventListener('change',()=>{
-  doSearch(searchBar); 
-  searchData.platform = eval(selectPlatforms.value); 
-})
+
+
  
 // load template
 switch(router.templateName){
@@ -38,6 +37,12 @@ switch(router.templateName){
             searchBar.addEventListener('keyup', () => {    
                 doSearch(searchBar);
             });  
+
+            //search filter platform
+            selectPlatforms.addEventListener('change',()=>{
+              doSearch(searchBar); 
+              searchData.platform = eval(selectPlatforms.value); 
+            })
 
             //loadMore
             const butonMore = document.getElementById('loadMore'); 
@@ -55,7 +60,14 @@ switch(router.templateName){
             document.addEventListener('keyup', () => {   
                 doSuggestSearch();
             });  
-                          
+            //selectPlatforms.disabled = true;                          
+            //search filter platform
+            selectPlatforms.addEventListener('change',()=>{ 
+              if(searchBar.value !== '') {
+                  doSuggestSearch();
+                  searchData.platform = eval(selectPlatforms.value); 
+              }
+            })
             break;         
 
 }

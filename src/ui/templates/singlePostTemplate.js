@@ -6,17 +6,23 @@
  */
 export const renderSinglePost =  (container, singleElement) => {
  
-    const[item] = singleElement;
-    console.log(item.cover);
-    const finalCover = (item.cover) ? "//images.igdb.com/igdb/image/upload/t_1080p/" + item.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
+    const [item] = singleElement; 
+    console.log(item.screenshots);
+    item.screenshots.forEach(element => {
+        console.log(element.url);
+    });
 
+    const finalCover = (item.cover) ? "//images.igdb.com/igdb/image/upload/t_1080p/" + item.cover.image_id + ".jpg" : '/assets/images/blank.jpg'; 
+    const screenshots =  
     container.innerHTML = `<div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="flex flex-col md:flex-row -mx-4">
                     <div class="md:flex-1 px-4">
                         <div class="h-[460px] rounded-lg bg-gray-300 dark:bg-gray-700 mb-4">
                             <img class="w-full h-full object-cover" src="${finalCover}">
+                             <ul>`;
+                                container.innerHTML += screenshots;
+    container.innerHTML += `</ul>
                         </div>
-                       
                     </div>
                     <div class="md:flex-1 px-4">
                         <h2 class="text-2xl font-bold mb-2">${item.name}</h2>

@@ -103,6 +103,10 @@ export const doSearch = (searchelement) => {
                
 }
 
+ /**
+  * 
+  * @param {*} searchelement 
+  */
 export const doSuggestSearch = () => {
 
         const pathname = window.location.pathname; 
@@ -121,6 +125,10 @@ export const doSuggestSearch = () => {
 
                 clearTimeout(timerElement);
                 timerElement = setTimeout(async() => {
+
+                //filter logic here
+                const filterPlatform = searchFilterPlatform.value; 
+                (filterPlatform === '') ? filters = '' :  filters = `release_dates.platform = (${filterPlatform}) &`;
         
                 const games = await searchGames(searchBar.value, filters);
                 //const games = await searchGames(searchelement.value, filters);
